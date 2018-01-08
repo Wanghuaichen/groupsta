@@ -1,13 +1,15 @@
-# groupiegram
-Instagram maar dan voor oudjes.
+# Groupsta
+Instagram maar dan met groepen.
 
 ## Idea
-Instagram voor ouderen.
+Potentieel idee: Instagram voor ouderen.
 - Foto's posten
 - Groepen
 - Elkaar en groepen volgen
 - Comments plaatsen (text of gif)
 - Foto's liken
+- Foto's delen
+- Notificaties
 
 ## Todo
 
