@@ -12,3 +12,4 @@ Instagram voor ouderen.
 ## Todo
 
 A quick overview of the thing we have to build.
+- [ ] Finish the project
