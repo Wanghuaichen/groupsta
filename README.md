@@ -16,12 +16,13 @@ Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers z
 - Zoekfunctie
 - Foto's bekijken (main feed)
 
-## Potentiële moeilijke features
+## Potentiële extra features
 - Upvote systeem
 - Privé groep
 - Groepsbeheer
   - mensen uit groepen verwijderen
   - beschrijving groep aanpassen
+- Evenementenfunctie
 
 ## Minimal viable product
 - Foto's posten
@@ -32,9 +33,26 @@ Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers z
 - Groepen aanmaken (zonder groepsbeheer)
 
 ## Afhankelijkheden
-- Zoekmachine is moeilijk te implementeren
 
-## Todo
+### Databronnen
+- Giphy API
+  - http://api.giphy.com
 
-A quick overview of the thing we have to build.
-- [ ] Finish the project
+### Externe componenten
+- Flask
+  - http://flask.pocoo.org/
+- Bootstrap (potentieël)
+  - https://getbootstrap.com/docs/4.0/getting-started/download/ 
+- phpmyadmin
+  - https://www.phpmyadmin.net/
+
+### Concurrerende bestaande websites
+- Instagram
+  - Ons project is gebaseerd op Instagram, bijna alle basisfuncties van deze applicatie worden overgenomen.
+- Reddit
+  - Reddit werkt met subreddits (communities), en op deze subreddits kan je abboneren. Wij gaan het subreddit idee implementeren in onze applicatie door middel van de groepen functie.
+
+### Moeilijkste delen
+- Zoekmachine is moeilijk te implementeren.
+- Database goed inrichten.
+- Groepenfunctie implementeren.
