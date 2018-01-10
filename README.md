@@ -5,7 +5,7 @@ Instagram maar dan met groepen.
 Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers zoals bij Instagram maar binnen één van je communities om groepen mensen weer met elkaar in contact te brengen. De nadruk bij Groupsta ligt bij de comments onder de foto's. Communities kunnen simpel gemaakt worden en een community mag overal over gaan, denk bijvoorbeeld aan een sportvereniging, vriendengroep, evenement of bijvoorbeeld een bejaardentehuis. Als iemand een foto plaatst in zo’n groep kan iedereen die lid is van die groep het bekijken/liken/delen of reageren.
 
 ## Schetsen
-<img src='http://i65.tinypic.com/vimmi8.jpg'/>
+Schetsen staan in Slackkanaal.
 
 ## Features
 - Foto's posten
