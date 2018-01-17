@@ -26,6 +26,7 @@ Schetsen staan in Slackkanaal.
   - mensen uit groepen verwijderen
   - beschrijving groep aanpassen
 - Evenementenfunctie
+- Explore pagina
 
 ## Minimal viable product
 - Foto's posten
@@ -33,6 +34,8 @@ Schetsen staan in Slackkanaal.
 - Comments plaatsen (inclusief gifs)
 - Account instellingen (simpel)
 - Groepen volgen
+  - Zodra een user een groep volgt wordt de feed van deze groep bij de mainfeed gevoegd
+  - Zodra een user een groep volgt kan de user foto's posten in deze groep
 - Groepen aanmaken (zonder groepsbeheer)
 
 ## Afhankelijkheden
@@ -59,3 +62,4 @@ Schetsen staan in Slackkanaal.
 - Zoekmachine is moeilijk te implementeren.
 - Database goed inrichten.
 - Groepenfunctie implementeren.
+- Random groupfeed laden wordt lastig.
