@@ -114,7 +114,38 @@
     - Groepdata aanpassen (POST)
       - Naam, beschrijving
     - Groep verwijderen (POST)
+    
+- /explore
+  - GET en POST
+  - Login required
+  - def explore():
+    - Lijst van groepen ophalen / navigatie (GET)
+      - instellingen
+      - groepen
+      - post pagina
+      - zoekfunctie
+    - Liken (POST)
+    - Commenten en Gif (POST/GET)
+    - Random feed ophalen (GET)
 
 ## Views 
+- Staan apart op Github
 
 ## Models/helper
+- Apology functie
+  - Functie die aangeeft als er ergens een error is
+- Zoekfunctie in database
+  - Functie om in database te zoeken naar een bepaald iets (Groep)
+- Feed laden 
+  - een functie die de database aanroept en de feed van bijvoorbeeld een groep ophaalt
+- Random feed laden
+  - willekeurige feed ophalen
+  
+## Plugins in framework
+- Flask
+  - http://flask.pocoo.org/
+- Bootstrap (potentieël)
+  - https://getbootstrap.com/docs/4.0/getting-started/download/ 
+- phpmyadmin
+  - https://www.phpmyadmin.net/
+- Wordt wellicht nog aangevuld met meer API's
