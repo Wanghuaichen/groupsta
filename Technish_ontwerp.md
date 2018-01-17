@@ -129,7 +129,7 @@
     - Random feed ophalen (GET)
 
 ## Views 
-- Staan apart op Github
+![My image](https://github.com/Zjoerdie/UvAgram/blob/master/pictures/prototype_website.jpg?raw=true "hoi")
 
 ## Models/helper
 - Apology functie
