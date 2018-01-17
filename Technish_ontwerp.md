@@ -148,4 +148,6 @@
   - https://getbootstrap.com/docs/4.0/getting-started/download/ 
 - phpmyadmin
   - https://www.phpmyadmin.net/
+- Giphy API
+  - http://api.giphy.com 
 - Wordt wellicht nog aangevuld met meer API's
