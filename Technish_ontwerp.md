@@ -115,7 +115,7 @@
       - Naam, beschrijving
     - Groep verwijderen (POST)
     
-- /explore
+- /explore (Hoort niet bij MVP)
   - GET en POST
   - Login required
   - def explore():
