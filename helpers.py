@@ -1,12 +1,19 @@
 from flask import redirect, render_template, request, session
-from passlib.apps import custom_app_context as pwd_context
+import csv
+import urllib.request
 
-def BackEndLogIN(username, password)
-        rows = db.execute("SELECT * FROM users WHERE username = :username", username=username)
+from flask import redirect, render_template, request, session
+from functools import wraps
 
-        # ensure username exists and password is correct
-        if len(rows) != 1 or not pwd_context.verify(password, rows[0]["hash"]):
-            return null
+def login_required(f):
+    """
+    Decorate routes to require login.
 
-        # remember which user has logged in
-        return [0]["id"]
+    http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
