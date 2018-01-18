@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container_login {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container_register {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
