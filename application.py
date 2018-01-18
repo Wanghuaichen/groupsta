@@ -1,2 +1,2 @@
-from flask import Flask, redirect, render_template, request, url_for
-#update jop's Laptop
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+app = Flask(__name__)
