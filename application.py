@@ -23,7 +23,12 @@ def login():
             return apology("must provide username")
 
 
-        BackEndLogIN(username, password)
+        ID = BackEndLogIN(username, password)
+        if ID == 0:
+            return "invalid username or password"
+        else:
+            return (url_for(index.html))
+
 
     else:
         return render_template("login.html")
