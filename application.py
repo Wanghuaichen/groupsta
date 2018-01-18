@@ -124,3 +124,38 @@ def logout():
 
     # redirect user to login form
     return redirect(url_for("login"))
+
+@app.route("/groupfeed", methods=["GET", "POST"])
+@login_required
+def groupfeed():
+
+    #TODO
+    return render_template("groupfeed.html")
+
+@app.route("/post", methods=["GET", "POST"])
+@login_required
+def post():
+
+    #TODO
+    return render_template("post.html")
+
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+
+    #TODO
+    return render_template("settings.html")
+
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+
+    #TODO
+    return render_template("profile.html")
+
+@app.route("/create", methods=["GET", "POST"])
+@login_required
+def create():
+
+    #TODO
+    return render_template("create.html")

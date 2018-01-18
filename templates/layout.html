@@ -9,7 +9,7 @@
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
         <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/lux/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
 
@@ -30,10 +30,11 @@
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ url_for('quote') }}">Quote</a></li>
-                                <li><a href="{{ url_for('buy') }}">Buy</a></li>
-                                <li><a href="{{ url_for('sell') }}">Sell</a></li>
-                                <li><a href="{{ url_for('history') }}">History</a></li>
+                                <li><a href="{{ url_for('groupfeed') }}">Groupfeed</a></li>
+                                <li><a href="{{ url_for('post') }}">Post</a></li>
+                                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                                <li><a href="{{ url_for('create') }}">Create</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
