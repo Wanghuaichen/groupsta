@@ -16,10 +16,6 @@
     - def logout():
         - Gebruiker uitloggen
 
-- /logout
-    - def logout():
-        - Gebruiker uitloggen
-
 - /index
   - GET en POST
   - login required
