@@ -2,7 +2,7 @@ from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
 
 # configure CS50 Library to use SQlite database
-db = SQL("sqlite:///finance.db")
+db = SQL("sqlite:///groupsta.db")
 
 class User():
 
