@@ -26,9 +26,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
-
 @app.route("/")
 @login_required
 def index():
@@ -52,8 +49,19 @@ def register():
         if request.form.get("password") != request.form.get("passwordcheck"):
             return render_template("register.html")
 
+            # ensure first name not blank
+        if not request.form.get("first_name"):
+            return render_template("register.html")
+
+        # ensure last name not blank
+        elif not request.form.get("last_name"):
+            return render_template("register.html")
+
         # instantiate User
-        user = users.User(request.form.get("username"), request.form.get("password"))
+        user = users.User(request.form.get("username"),
+                          request.form.get("password"),
+                          request.form.get("first_name"),
+                          request.form.get("last_name"))
 
         # retrieve user after register
         register = user.register()
@@ -66,7 +74,7 @@ def register():
         else:
 
             # log user in
-            session["user_id"] = register["id"]
+            session["user_id"] = register["user_id"]
 
             # redirect user to homepage
             return redirect(url_for("index"))
