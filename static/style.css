@@ -1,6 +1,7 @@
 /* IMPORT FONTS */
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+
 /* OVERALL */
 .container {
     width: 100%;
@@ -8,9 +9,14 @@
     padding: 0;
 }
 
+.missing {
+    color: tomato;
+}
+
 h1 {
     font-family: 'Montserrat', sans-serif;
 }
+
 
 /* LOGIN AND REGISTER */
 .body_log_reg {
