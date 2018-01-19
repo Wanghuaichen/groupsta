@@ -131,12 +131,6 @@ def logout():
     # redirect user to login form
     return redirect(url_for("login"))
 
-@app.route("/groupfeed", methods=["GET", "POST"])
-@login_required
-def groupfeed():
-
-    #TODO
-    return render_template("groupfeed.html")
 
 @app.route("/post", methods=["GET", "POST"])
 @login_required
