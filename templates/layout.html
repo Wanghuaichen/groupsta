@@ -37,7 +37,6 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session.user_id %}
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ url_for('groupfeed') }}">Groupfeed</a></li>
                             <li><a href="{{ url_for('post') }}">Post</a></li>
                             <li><a href="{{ url_for('settings') }}">Settings</a></li>
                             <li><a href="{{ url_for('profile') }}">Profile</a></li>
