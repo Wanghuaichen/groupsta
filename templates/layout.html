@@ -9,43 +9,49 @@
         <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
         <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
 
-        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+        <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 
         <title>GROUPSTA{% block title %}{% endblock %}</title>
 
     </head>
     <body>
         <div class="container">
-
-            <nav class="navbar navbar-default" style="background-color: #f3f2fd;">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="{{ url_for('index') }}"><span class="blue">groupsta</span></a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbar">
-                        {% if session.user_id %}
-                            <ul class="nav navbar-nav">
-                                <li><a href="{{ url_for('groupfeed') }}">Groupfeed</a></li>
-                                <li><a href="{{ url_for('post') }}">Post</a></li>
-                                <li><a href="{{ url_for('settings') }}">Settings</a></li>
-                                <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                                <li><a href="{{ url_for('create') }}">Create</a></li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                            </ul>
-                        {% else %}
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="{{ url_for('register') }}">Register</a></li>
-                                <li><a href="{{ url_for('login') }}">Log In</a></li>
-                            </ul>
-                        {% endif %}
-                    </div>
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url_for('index') }}"><span class="blue">groupsta</span></a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session.user_id %}
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url_for('groupfeed') }}">Groupfeed</a></li>
+                            <li><a href="{{ url_for('post') }}">Post</a></li>
+                            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                            <li><a href="{{ url_for('create') }}">Create</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ url_for('register') }}">Register</a></li>
+                            <li><a href="{{ url_for('login') }}">Log In</a></li>
+                        </ul>
+                    {% endif %}
                 </div>
             </nav>
 
