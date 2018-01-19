@@ -1,17 +1,54 @@
+/* IMPORT FONTS */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+/* OVERALL */
 .container {
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
-.container_login {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
+h1 {
+    font-family: 'Montserrat', sans-serif;
 }
 
-.container_register {
-    width: 40%;
+/* LOGIN AND REGISTER */
+.body_log_reg {
+    background-color: #f7f7f7;
+}
+
+.container_log_reg {
+    width: 30vw;
     margin-left: auto;
     margin-right: auto;
+    background-color: #fff;
+    padding: 1vw;
+    border: 1px solid #d8d8d8;
+}
+
+.container_log_reg h1 {
+    text-align: center;
+}
+
+.log_reg input[type=text] {
+    background-color: #f7f7f7;
+    border-style: none;
+    border-radius: 0;
+}
+
+.log_reg input[type=password] {
+    background-color: #f7f7f7;
+    border-style: none;
+    border-radius: 0;
+}
+
+#log_reg_button {
+    border: none;
+    background: #6eb9e5 !important;
+    color: #fff;
+    border-radius: 0;
+}
+
+#log_reg_button:hover {
+    background: #5ea1c9 !important;
 }
