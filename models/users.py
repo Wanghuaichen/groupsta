@@ -10,7 +10,8 @@ class User():
         self.username = username
         self.password = password
 
-    def register(self):
+
+    def register(self, first_name, last_name):
 
         # encrypt password
         hash_password = pwd_context.hash(self.password)
@@ -23,8 +24,11 @@ class User():
         else:
 
             # insert new user into users
-            db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
-            username=self.username, hash=hash_password)
+            db.execute("INSERT INTO users (username, hash, first_name, last_name) VALUES (:username, :hash, :first_name, :last_name)",
+                        username=self.username,
+                        hash=hash_password,
+                        first_name=first_name,
+                        last_name=last_name)
 
             # retrieve user
             user = db.execute("SELECT * FROM users WHERE username = :username", username=self.username)
