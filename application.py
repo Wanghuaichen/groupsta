@@ -75,7 +75,7 @@ def register():
             session["user_id"] = register["user_id"]
 
             # redirect user to homepage
-            return redirect(url_for("index"))
+            return redirect(url_for("login"))
 
     else:
         return render_template("register.html")
@@ -157,5 +157,21 @@ def profile():
 @login_required
 def create():
 
-    #TODO
-    return render_template("create.html")
+    if request.method == "POST":
+        if not request.form.get("title"):
+            return render_template("create.html", missingtitle = "The title is missing")
+
+        elif not request.form.get("description"):
+            return render_template("create.html", missingdesc = "The description is missing")
+
+        description = request.form.get("description")
+        title = request.form.get("title")
+        group = users.Group(description, title, session["user_id"])
+
+        create = group.create()
+        if create == None:
+            return render_template("create.html", missingtitle = "The title already exists")
+
+        return render_template("groupfeed.html")
+    else:
+        return render_template("create.html")

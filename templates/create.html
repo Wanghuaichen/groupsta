@@ -5,7 +5,24 @@
 {% endblock %}
 
 {% block main %}
-    <body>
+<body class="body_log_reg">
+    <div class="container_log_reg">
         <h1>Create</h1>
-    </body>
+        <form action="{{ url_for('create') }}" method="post">
+            <fieldset class="log_reg">
+                <div class="form-group">
+                    <input autocomplete="off" autofocus class="form-control" name="title" placeholder="title" type="text"/>
+                </div>
+                <p style="color:Tomato;">{{ missingtitle }}</p>
+                <div class="form-group">
+                    <input class="form-control" name="description" placeholder="Description" type="text"/>
+                </div>
+                <p style="color:Tomato;">{{ missingdesc }}</p>
+                <div class="form-group">
+                    <button class="btn btn-default btn-block" id="log_reg_button" type="submit">Create</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
 {% endblock %}
