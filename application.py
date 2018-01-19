@@ -6,7 +6,7 @@ from tempfile import mkdtemp
 
 from helpers import *
 import time
-from models import users
+from models import users, groups
 
 # configure application
 app = Flask(__name__)
@@ -166,7 +166,7 @@ def create():
 
         description = request.form.get("description")
         title = request.form.get("title")
-        group = users.Group(description, title, session["user_id"])
+        group = groups.Group(description, title, session["user_id"])
 
         create = group.create()
         if create == None:
