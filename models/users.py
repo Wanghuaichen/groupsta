@@ -6,13 +6,12 @@ db = SQL("sqlite:///groupsta.db")
 
 class User():
 
-    def __init__(self, username, password, first_name, last_name):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.first_name = first_name
-        self.last_name = last_name
 
-    def register(self):
+
+    def register(self, first_name, last_name):
 
         # encrypt password
         hash_password = pwd_context.hash(self.password)
@@ -28,8 +27,8 @@ class User():
             db.execute("INSERT INTO users (username, hash, first_name, last_name) VALUES (:username, :hash, :first_name, :last_name)",
                         username=self.username,
                         hash=hash_password,
-                        first_name=self.first_name,
-                        last_name=self.last_name)
+                        first_name=first_name,
+                        last_name=last_name)
 
             # retrieve user
             user = db.execute("SELECT * FROM users WHERE username = :username", username=self.username)

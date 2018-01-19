@@ -59,12 +59,10 @@ def register():
 
         # instantiate User
         user = users.User(request.form.get("username"),
-                          request.form.get("password"),
-                          request.form.get("first_name"),
-                          request.form.get("last_name"))
+                          request.form.get("password"))
 
         # retrieve user after register
-        register = user.register()
+        register = user.register(request.form.get("first_name"), request.form.get("last_name"))
 
         # if username already exists
         if register is None:
@@ -114,7 +112,7 @@ def login():
         else:
 
             # log user in
-            session["user_id"] = login["id"]
+            session["user_id"] = login["user_id"]
 
             # redirect to index
             return redirect(url_for("index"))
