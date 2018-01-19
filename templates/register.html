@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block main %}
-<h1>Register</h1>
-    <body>
+<body>
+    <div class="container_register">
+        <h1>Register</h1>
         <form action="{{ url_for('register') }}" method="post">
             <fieldset>
                 <div class="form-group">
@@ -19,9 +20,16 @@
                     <input class="form-control" name="passwordcheck" placeholder="Password check" type="password"/>
                 </div>
                 <div class="form-group">
+                    <input class="form-control" name="first_name" placeholder="First name" type="text"/>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="last_name" placeholder="Last name" type="text"/>
+                </div>
+                <div class="form-group">
                     <button class="btn btn-default" type="submit">Register</button>
                 </div>
             </fieldset>
         </form>
-    </body>
+    </div>
+</body>
 {% endblock %}
