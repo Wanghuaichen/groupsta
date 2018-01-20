@@ -6,9 +6,11 @@
 
 {% block main %}
 <body class="body_log_reg">
+    <h1>Settings</h1>
+    <p>{{ success }}</p>
     <div class="container_log_reg">
-        <h1>Settings</h1>
-        <p>{{ success }}</p>
+        <h1>Change Password</h1>
+
         <form action="{{ url_for('settings') }}" method="post">
             <fieldset class="log_reg">
                 <p class="missing">{{ missingcurrent }}</p>
@@ -26,7 +28,31 @@
                     <input class="form-control" name="check_password" placeholder="New password check" type="password"/>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-default btn-block" id="log_reg_button" type="submit">Change password</button>
+                    <input type="submit" class="btn btn-default btn-block" id="log_reg_button" name="action" value="Change password">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="container_log_reg">
+        <h1>Change Username</h1>
+        <form action="{{ url_for('settings') }}" method="post">
+            <fieldset class="log_reg">
+                <p class="missing">{{ missingcurrent2 }}</p>
+                <p class="missing">{{ failure2 }}</p>
+                <div class="form-group">
+                    <input autocomplete="off" autofocus class="form-control" name="current_username" placeholder="Current username" type="text"/>
+                </div>
+                <p class="missing">{{ missingnew2 }}</p>
+                <div class="form-group">
+                    <input class="form-control" name="new_username" placeholder="New username" type="TEXT"/>
+                </div>
+                <p class="missing">{{ missingcheck2 }}</p>
+                <div class="form-group">
+                    <input class="form-control" name="current_password" placeholder="Password" type="password"/>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default btn-block" id="log_reg_button" name="action" value="Change username">
                 </div>
             </fieldset>
         </form>

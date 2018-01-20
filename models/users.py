@@ -75,6 +75,11 @@ class User():
     # MOET NOG GETEST WORDEN MAAR DAARVOOR MOETEN WE EVEN DE HTML VAN SETTINGS BESPREKEN
     def change_username(self, current_username, new_username, current_password):
 
+        # check if new username already exists
+        result = db.execute("SELECT * FROM users WHERE username = :username", username=new_username)
+        if len(result) != 0:
+            return None
+
         # retrieve user
         user = db.execute("SELECT * FROM users WHERE user_id = :user_id", user_id=self.user_id)
 

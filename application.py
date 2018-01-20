@@ -142,34 +142,65 @@ def settings():
 
     if request.method == "POST":
 
-        # if any form blank
-        if not request.form.get("current_password"):
-            return render_template("settings.html", missingcurrent = "Current password missing")
-
-        if not request.form.get("new_password"):
-            return render_template("settings.html", missingnew = "New password missing")
-
-        if not request.form.get("check_password"):
-            return render_template("settings.html", missingcheck = "Password check missing")
-
-        # check if new password and password match
-        if request.form.get("new_password") != request.form.get("check_password"):
-            return render_template("settings.html", nomatch = "Passwords do not match")
-
         # instantiate user
         user = users.User(session["user_id"])
 
-        # change password
-        change = user.change_password(request.form.get("current_password"),
-                                      request.form.get("new_password"),
-                                      request.form.get("check_password"))
+        # if password button is pressed
+        if request.form["action"] == "Change password":
 
-        # if change successful
-        if change == True:
-            return render_template("settings.html", success= "Password changed!")
+            # if any form blank
+            if not request.form.get("current_password"):
+                return render_template("settings.html", missingcurrent = "Current password missing")
 
-        else:
-            return render_template("settings.html", failure = "Current password is incorrect!")
+            if not request.form.get("new_password"):
+                return render_template("settings.html", missingnew = "New password missing")
+
+            if not request.form.get("check_password"):
+                return render_template("settings.html", missingcheck = "Password check missing")
+
+            # check if new password and password match
+            if request.form.get("new_password") != request.form.get("check_password"):
+                return render_template("settings.html", nomatch = "Passwords do not match")
+
+            # change password
+            change_password = user.change_password(request.form.get("current_password"),
+                                          request.form.get("new_password"),
+                                          request.form.get("check_password"))
+
+            # if change successful
+            if change_password == True:
+                return render_template("settings.html", success= "Password changed!")
+
+            else:
+                return render_template("settings.html", failure = "Current password is incorrect!")
+
+
+        # if username button is pressed
+        elif request.form["action"] == "Change username":
+
+            # if any form blank
+            if not request.form.get("current_username"):
+                return render_template("settings.html", missingcurrent = "Current username missing")
+
+            if not request.form.get("new_username"):
+                return render_template("settings.html", missingnew2 = "New username missing")
+
+            if not request.form.get("current_password"):
+                return render_template("settings.html", missingcheck2 = "Password is missing")
+
+            # change username
+            change_username = user.change_username(request.form.get("current_username"),
+                                                   request.form.get("new_username"),
+                                                   request.form.get("current_password"))
+
+            if change_username is True:
+                return render_template("settings.html", success = "Username changed!")
+
+            if change_username is False:
+                return render_template("settings.html", failure2 = "Password is incorrect!")
+
+            if change_username is None:
+                return render_template("settings.html", failure2 = "Username already exists!")
 
     else:
         return render_template("settings.html")
