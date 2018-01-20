@@ -57,12 +57,12 @@ def register():
         elif not request.form.get("last_name"):
             return render_template("register.html")
 
-        # instantiate User
-        user = users.User(request.form.get("username"),
-                          request.form.get("password"))
 
         # retrieve user after register
-        register = user.register(request.form.get("first_name"), request.form.get("last_name"))
+        register = users.User.register(request.form.get("username"),
+                                       request.form.get("password"),
+                                       request.form.get("first_name"),
+                                       request.form.get("last_name"))
 
         # if username already exists
         if register is None:
@@ -75,7 +75,7 @@ def register():
             session["user_id"] = register["user_id"]
 
             # redirect user to homepage
-            return redirect(url_for("login"))
+            return redirect(url_for("index"))
 
     else:
         return render_template("register.html")
@@ -92,21 +92,18 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("login.html", missing_name = "Username missing")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
-
-        # instantiate User
-        user = users.User(request.form.get("username"), request.form.get("password"))
+            return render_template("login.html", missing_pass = "Password missing")
 
         # retrieve user after login
-        login = user.login()
+        login = users.User.login(request.form.get("username"), request.form.get("password"))
 
         # if login unsuccessful
         if login is None:
-            return render_template("login.html")
+            return render_template("login.html", failure = "Login unsuccessful!")
 
         # if login successful
         else:
@@ -143,8 +140,43 @@ def post():
 @login_required
 def settings():
 
-    #TODO
-    return render_template("settings.html")
+    if request.method == "POST":
+
+        # if any form blank
+        if not request.form.get("current_password"):
+            return render_template("settings.html", missingcurrent = "Current password missing")
+
+        if not request.form.get("new_password"):
+            return render_template("settings.html", missingnew = "New password missing")
+
+        if not request.form.get("check_password"):
+            return render_template("settings.html", missingcheck = "Password check missing")
+
+        # check if new password and password match
+        if request.form.get("new_password") != request.form.get("check_password"):
+            return render_template("settings.html", nomatch = "Passwords do not match")
+
+            # store posted values
+        current_password = request.form.get("current_password")
+        new_password = request.form.get("new_password")
+        check_password = request.form.get("check_password")
+
+        # instantiate user
+        user = users.User(session["user_id"])
+
+        # change passwword
+        change = user.change_password(current_password, new_password, check_password)
+
+        # if change successful v12v222
+        if change == True:
+            return render_template("settings.html", success= "Password changed!")
+
+        else:
+            return render_template("settings.html", failure = "Current password is incorrect!")
+
+    else:
+        return render_template("settings.html")
+
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
