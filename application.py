@@ -156,18 +156,15 @@ def settings():
         if request.form.get("new_password") != request.form.get("check_password"):
             return render_template("settings.html", nomatch = "Passwords do not match")
 
-            # store posted values
-        current_password = request.form.get("current_password")
-        new_password = request.form.get("new_password")
-        check_password = request.form.get("check_password")
-
         # instantiate user
         user = users.User(session["user_id"])
 
-        # change passwword
-        change = user.change_password(current_password, new_password, check_password)
+        # change password
+        change = user.change_password(request.form.get("current_password"),
+                                      request.form.get("new_password"),
+                                      request.form.get("check_password"))
 
-        # if change successful v12v222
+        # if change successful
         if change == True:
             return render_template("settings.html", success= "Password changed!")
 
