@@ -43,6 +43,9 @@ Schetsen staan in Github.
 ### Databronnen
 - Giphy API
   - http://api.giphy.com
+- Flask-uploads API
+  - https://pythonhosted.org/Flask-Uploads/
+  - https://github.com/maxcountryman/flask-uploads
 
 ### Externe componenten
 - Flask
