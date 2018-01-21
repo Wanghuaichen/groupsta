@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    followgroup
+{% endblock %}
+
+{% block main %}
+<body class="body_log_reg">
+    <div class="container_log_reg">
+        <h1>follow groups</h1>
+        {% for group in followable %}
+            <p>
+                {{ group.group_name }}
+            </p>
+            <div class="panel_body">
+                <button name="group_id" type="submiy" value="{{ group.group_id }}">Join</button>
+            </div>
+            <BR>
+        </tr>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}
