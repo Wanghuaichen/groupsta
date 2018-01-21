@@ -154,8 +154,20 @@ def followgroup():
 @login_required
 def post():
 
-    #TODO
-    return render_template("post.html")
+    group = groups.Group(session["user_id"])
+
+    if request.method == "POST" and 'photo' in request.files:
+        # save photo in img folder
+        file = photos.save(request.files["photo"])
+        path = 'static/' + str(file)
+        group.post(path)
+        
+        return redirect(url_for("index"))
+
+    else:
+        group = groups.Group(session["user_id"])
+        following = group.loadgroups()
+        return render_template("post.html", groups = following)
 
 @app.route("/settings", methods=["GET", "POST"])
 @login_required
