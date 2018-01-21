@@ -3,10 +3,11 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+from flask_uploads import UploadSet, IMAGES, configure_uploads
 
 from helpers import *
 import time
-from models import users, groups
+from models import users, groups, posts
 
 # configure application
 app = Flask(__name__)
@@ -25,6 +26,11 @@ app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+# configure flask_upload API
+photos = UploadSet("photos", IMAGES)
+app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
+configure_uploads(app, photos)
 
 @app.route("/")
 @login_required
@@ -154,19 +160,18 @@ def followgroup():
 @login_required
 def post():
 
-    group = groups.Group(session["user_id"])
+    post = posts.Post(session["user_id"])
 
     if request.method == "POST" and 'photo' in request.files:
         # save photo in img folder
         file = photos.save(request.files["photo"])
         path = 'static/' + str(file)
-        group.post(path)
-        
+        post.upload(path)
+
         return redirect(url_for("index"))
 
     else:
-        group = groups.Group(session["user_id"])
-        following = group.loadgroups()
+        following = post.loadgroups()
         return render_template("post.html", groups = following)
 
 @app.route("/settings", methods=["GET", "POST"])
