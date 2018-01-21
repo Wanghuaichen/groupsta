@@ -46,13 +46,5 @@ class Group():
     def loadgroups(self):
         result = db.execute("SELECT * FROM groups")
         return result
-    
-    def post(self, img_path):
-        # retrieve username of user
-        name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
-        
-        # import post in database of user
-        db.execute("INSERT INTO posts (user_id, post_path, username) VALUES (:user_id, :post_path, :username)", \
-                    user_id = self.user_id, \
-                    post_path = img_path, \
-                    username = name[0]["username"])
+
+
