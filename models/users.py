@@ -71,8 +71,6 @@ class User():
         else:
             return False
 
-
-    # MOET NOG GETEST WORDEN MAAR DAARVOOR MOETEN WE EVEN DE HTML VAN SETTINGS BESPREKEN
     def change_username(self, current_username, new_username, current_password):
 
         # check if new username already exists
