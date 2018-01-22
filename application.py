@@ -134,26 +134,28 @@ def logout():
     # redirect user to login form
     return redirect(url_for("login"))
 
+
 @app.route("/followgroup", methods=["GET", "POST"])
 @login_required
 def followgroup():
+
+    group = groups.Group(session["user_id"], "", 0, "")
+    followable = group.loadgroups()
+
     if request.method == "POST":
-        if request.form["submiy"] == "1":
-            return "hello"
- #       for i in range(1000):
-  #          if int(request.form["submiy"]) == int(i):
-   #             group_id = i
-    #            group = groups.Group(session["user_id"], "", group_id, "")
-     #           result = group.follow()
-      #
-      #          if result == None:
-       #             return "already member"
-        #        else:
-         #           return render_template("groupfeed.html")
+
+        for thing in followable:
+            group_id = thing["group_id"]
+
+            if request.form["action"] == str(group_id):
+                group = groups.Group(session["user_id"], "", group_id, "")
+                result = group.follow()
+                if result == None:
+                    return "already member"
+                else:
+                    return render_template("groupfeed.html")
 
     else:
-        group = groups.Group(session["user_id"], "", 0, "")
-        followable = group.loadgroups()
         return render_template("followgroup.html", followable = followable)
 
 @app.route("/post", methods=["GET", "POST"])
