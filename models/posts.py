@@ -19,5 +19,5 @@ class Post():
                             username = name[0]["username"])
 
         def loadgroups(self):
-                result = db.execute("SELECT * FROM groups")
+                result = db.execute("SELECT * FROM follow where user_id = :user_id", user_id = self.user_id)
                 return result
