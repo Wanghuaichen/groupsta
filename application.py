@@ -138,18 +138,15 @@ def logout():
 @login_required
 def followgroup():
     if request.method == "POST":
-        if request.form["submiy"] == "1":
-            return "hello"
- #       for i in range(1000):
-  #          if int(request.form["submiy"]) == int(i):
-   #             group_id = i
-    #            group = groups.Group(session["user_id"], "", group_id, "")
-     #           result = group.follow()
-      #
-      #          if result == None:
-       #             return "already member"
-        #        else:
-         #           return render_template("groupfeed.html")
+        if request.form["submiy"]:
+            group_id = i
+            group = groups.Group(session["user_id"], "", request.form["submiy"], "")
+            result = group.follow()
+
+            if result == None:
+                return "already member"
+            else:
+                return render_template("groupfeed.html")
 
     else:
         group = groups.Group(session["user_id"], "", 0, "")
@@ -264,21 +261,27 @@ def profile():
 def create():
 
     if request.method == "POST":
+        # check if there's a title
         if not request.form.get("title"):
             return render_template("create.html", missingtitle = "The title is missing")
 
+        # check if there's a description
         elif not request.form.get("description"):
             return render_template("create.html", missingdesc = "The description is missing")
 
+        # define variables
         description = request.form.get("description")
         title = request.form.get("title")
         group_id = 0
-        group = groups.Group(session["user_id"], title, group_id, description)
 
+        # create the group
+        group = groups.Group(session["user_id"], title, group_id, description)
         create = group.create()
+
+        # answer the responses of the function create
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists")
-
         return render_template("groupfeed.html")
+
     else:
         return render_template("create.html")
