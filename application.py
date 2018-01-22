@@ -283,21 +283,33 @@ def profile():
 def create():
 
     if request.method == "POST":
+        # checks if inputs are correct
         if not request.form.get("title"):
             return render_template("create.html", missingtitle = "The title is missing")
 
         elif not request.form.get("description"):
             return render_template("create.html", missingdesc = "The description is missing")
 
-        description = request.form.get("description")
-        title = request.form.get("title")
-        group_id = 0
-        group = groups.Group(session["user_id"], group_id)
+        # create function is being called and generates output
+        group = groups.Group(session["user_id"], 0)
+        create = group.create(request.form.get("title"), request.form.get("description"))
 
-        create = group.create(title, description)
+        # responds to the output
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists")
 
         return render_template("groupfeed.html")
     else:
         return render_template("create.html")
+
+@app.route("/groupfeed", methods=["GET", "POST"])
+@login_required
+def groupfeed():
+    # initiate functions
+    group = groups.Group(session["user_id"], group_id)
+    feed = group.loadfeed()
+
+    if request.method == "POST":
+        return "hello"
+    else:
+        return render_template("groupfeed.html", feed = feed)

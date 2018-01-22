@@ -5,7 +5,20 @@
 {% endblock %}
 
 {% block main %}
-    <body>
-        <h1>Groupfeed</h1>
-    </body>
+<body class="body_log_reg">
+    <div class="container_log_reg">
+        <body>
+            <h1>Groupfeed</h1>
+                {% for post in feed %}
+                    <p>
+                        {{ post.username }}
+                        <BR>
+                        {{ post.description }}
+                        <BR>
+                    </p>
+                    <img src=" {{url_for(post.post_path)}}">
+                {% endfor %}
+        </body>
+    </div>
+</body>
 {% endblock %}

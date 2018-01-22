@@ -51,7 +51,9 @@ class Group():
         return result
 
     def loadfeed(self):
-        feed = db.execute("SELECT * WHERE group_id = :group_id", group_id = self.group_id)
+        # loads all posts of a group
+        feed = db.execute("SELECT * FROM posts WHERE group_id = :group_id", group_id = self.group_id)
+        return feed
 
 
 
