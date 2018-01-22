@@ -50,5 +50,8 @@ class Group():
         result = db.execute("SELECT * FROM groups")
         return result
 
+    def loadfeed(self):
+        feed = db.execute("SELECT * WHERE group_id = :group_id", group_id = self.group_id)
+
 
 

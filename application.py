@@ -139,21 +139,20 @@ def logout():
 @login_required
 def followgroup():
 
+    # instantiate functions
     group = groups.Group(session["user_id"], "", 0, "")
     followable = group.loadgroups()
 
     if request.method == "POST":
+        # controls if a button is pressed and which button is pressed
+        if request.form["action"]:
+            group_id = request.form["action"]
 
-        for thing in followable:
-            group_id = thing["group_id"]
+            # the group_id of the pressed button will be transported to the follow function and returns the follow_id
+            group = groups.Group(session["user_id"], "", group_id, "")
+            result = group.follow()
 
-            if request.form["action"] == str(group_id):
-                group = groups.Group(session["user_id"], "", group_id, "")
-                result = group.follow()
-                if result == None:
-                    return "already member"
-                else:
-                    return render_template("groupfeed.html")
+            return render_template("groupfeed.html")
 
     else:
         return render_template("followgroup.html", followable = followable)
