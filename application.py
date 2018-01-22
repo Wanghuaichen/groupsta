@@ -170,6 +170,10 @@ def post():
         # request photo
         photo = request.files["photo"]
 
+        # check for correct user input
+        if not photo:
+            return render_template("post.html", groups = following, error = "no photo uploaded, pick one!")
+
         # check for allowed extensions
         filename = str(photo.filename)
         if filename.endswith(('.jpg','.png','.jpeg','.gif','.JPG','.PNG','.JPEG','.GIF')):
@@ -180,9 +184,12 @@ def post():
             # check in which group to post
             choice = request.form["group"]
 
+            # pull description of photo
+            description = request.form["description"]
+
             # insert into database
             path = 'static/img/' + str(file)
-            post.upload(path, choice)
+            post.upload(path, choice, description)
 
             return redirect(url_for("index"))
 
