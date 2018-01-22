@@ -138,15 +138,18 @@ def logout():
 @login_required
 def followgroup():
     if request.method == "POST":
-        if request.form["submiy"]:
-            group_id = i
-            group = groups.Group(session["user_id"], "", request.form["submiy"], "")
-            result = group.follow()
-
-            if result == None:
-                return "already member"
-            else:
-                return render_template("groupfeed.html")
+        if request.form["submiy"] == "1":
+            return "hello"
+ #       for i in range(1000):
+  #          if int(request.form["submiy"]) == int(i):
+   #             group_id = i
+    #            group = groups.Group(session["user_id"], "", group_id, "")
+     #           result = group.follow()
+      #
+      #          if result == None:
+       #             return "already member"
+        #        else:
+         #           return render_template("groupfeed.html")
 
     else:
         group = groups.Group(session["user_id"], "", 0, "")
@@ -157,6 +160,7 @@ def followgroup():
 @login_required
 def post():
 
+    # instantiate functions
     post = posts.Post(session["user_id"])
     following = post.loadgroups()
 
@@ -168,13 +172,14 @@ def post():
         filename = str(photo.filename)
         if filename.endswith(('.jpg','.png','.jpeg','.gif')):
             file = photos.save(photo)
-            path = 'static/' + str(file)
+            path = 'static/img/' + str(file)
             post.upload(path)
 
             return redirect(url_for("index"))
-        else:
-            return render_template("post.html", groups = following, error = "extension not allowed you dickhead")
 
+        # if extension is not allowed
+        else:
+            return render_template("post.html", groups = following, error = "extension not allowed")
 
     else:
         return render_template("post.html", groups = following)
@@ -261,27 +266,21 @@ def profile():
 def create():
 
     if request.method == "POST":
-        # check if there's a title
         if not request.form.get("title"):
             return render_template("create.html", missingtitle = "The title is missing")
 
-        # check if there's a description
         elif not request.form.get("description"):
             return render_template("create.html", missingdesc = "The description is missing")
 
-        # define variables
         description = request.form.get("description")
         title = request.form.get("title")
         group_id = 0
-
-        # create the group
         group = groups.Group(session["user_id"], title, group_id, description)
-        create = group.create()
 
-        # answer the responses of the function create
+        create = group.create()
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists")
-        return render_template("groupfeed.html")
 
+        return render_template("groupfeed.html")
     else:
         return render_template("create.html")
