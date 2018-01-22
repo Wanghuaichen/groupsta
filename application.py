@@ -172,7 +172,7 @@ def post():
 
         # check for allowed extensions
         filename = str(photo.filename)
-        if filename.endswith(('.jpg','.png','.jpeg','.gif')):
+        if filename.endswith(('.jpg','.png','.jpeg','.gif','.JPG','.PNG','.JPEG','.GIF')):
 
             # if allowed, save photo in folder
             file = photos.save(photo)
