@@ -171,7 +171,11 @@ def post():
         # check for allowed extensions
         filename = str(photo.filename)
         if filename.endswith(('.jpg','.png','.jpeg','.gif')):
+
+            # if allowed, save photo in folder
             file = photos.save(photo)
+
+            # insert into database
             path = 'static/img/' + str(file)
             post.upload(path)
 
