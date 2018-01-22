@@ -140,7 +140,7 @@ def logout():
 def followgroup():
 
     # instantiate functions
-    group = groups.Group(session["user_id"], "", 0, "")
+    group = groups.Group(session["user_id"], 0)
     followable = group.loadgroups()
 
     if request.method == "POST":
@@ -149,10 +149,12 @@ def followgroup():
             group_id = request.form["action"]
 
             # the group_id of the pressed button will be transported to the follow function and returns the follow_id
-            group = groups.Group(session["user_id"], "", group_id, "")
+            group = groups.Group(session["user_id"], group_id)
             result = group.follow()
-
-            return render_template("groupfeed.html")
+            if result == None:
+                return render_template("followgroup.html", followable = followable, error = "You're already member of this group")
+            else:
+                return render_template("groupfeed.html")
 
     else:
         return render_template("followgroup.html", followable = followable)
@@ -290,9 +292,9 @@ def create():
         description = request.form.get("description")
         title = request.form.get("title")
         group_id = 0
-        group = groups.Group(session["user_id"], title, group_id, description)
+        group = groups.Group(session["user_id"], group_id)
 
-        create = group.create()
+        create = group.create(title, description)
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists")
 
