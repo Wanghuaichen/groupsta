@@ -161,17 +161,25 @@ def followgroup():
 def post():
 
     post = posts.Post(session["user_id"])
+    following = post.loadgroups()
 
     if request.method == "POST" and 'photo' in request.files:
-        # save photo in img folder
-        file = photos.save(request.files["photo"])
-        path = 'static/' + str(file)
-        post.upload(path)
+        # request photo
+        photo = request.files["photo"]
 
-        return redirect(url_for("index"))
+        # check for allowed extensions
+        filename = str(photo.filename)
+        if filename.endswith(('.jpg','.png','.jpeg','.gif')):
+            file = photos.save(photo)
+            path = 'static/' + str(file)
+            post.upload(path)
+
+            return redirect(url_for("index"))
+        else:
+            return render_template("post.html", groups = following, error = "extension not allowed you dickhead")
+
 
     else:
-        following = post.loadgroups()
         return render_template("post.html", groups = following)
 
 @app.route("/settings", methods=["GET", "POST"])
