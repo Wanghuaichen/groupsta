@@ -87,6 +87,17 @@
       - Beschrijving
       - Groepsavatar (Hoort niet bij MVP)
 
+- /followgroup
+    - GET en POST
+    - login required
+    - Lijst van groepen ophalen / navigatie (GET/POST)
+      - instellingen
+      - groepen
+      - post pagina
+      - zoekfunctie
+    - Lijst van groepen die je kan volgen
+    - Knop waarmee je kan volgen
+
 - /admin (Hoort niet bij MVP)
   - GET en POST
   - login required
