@@ -177,9 +177,12 @@ def post():
             # if allowed, save photo in folder
             file = photos.save(photo)
 
+            # check in which group to post
+            choice = request.form["group"]
+
             # insert into database
             path = 'static/img/' + str(file)
-            post.upload(path)
+            post.upload(path, choice)
 
             return redirect(url_for("index"))
 
