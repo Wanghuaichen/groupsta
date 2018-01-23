@@ -1,9 +1,10 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+import json
 
 from helpers import *
 import time
@@ -32,10 +33,37 @@ photos = UploadSet("photos", IMAGES)
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
 configure_uploads(app, photos)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
     return render_template("index.html")
+
+@app.route("/search")
+def search():
+    user_id = session["user_id"]
+    group = groups.Group(user_id, 0)
+    data = group.loadgroups()
+
+    text = request.args['searchText']
+
+    if len(text) >= 2:
+        result = []
+        for element in data:
+            for i in element:
+                if i == 'group_name':
+                    searchable = element[i]
+                    if str(text).lower() in str(searchable).lower():
+                        result.append(searchable)
+                else:
+                    pass
+
+        if not result:
+            return json.dumps({"results":["No groups found"]})
+
+        return json.dumps({"results":result})
+
+    else:
+        return None
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
