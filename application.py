@@ -184,12 +184,14 @@ def post():
 
             # check in which group to post
             choice = request.form["group"]
+            if not choice:
+                return render_template("post.html", groups=following, error = "no group chosen")
 
             # pull description of photo
             description = request.form["description"]
 
             # insert into database
-            path = 'static/img/' + str(file)
+            path = file
             post.upload(path, choice, description)
 
             return redirect(url_for("index"))
