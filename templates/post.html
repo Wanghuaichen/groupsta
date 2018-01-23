@@ -6,13 +6,18 @@
 
 {% block main %}
     <body>
-        <!--<h1>Share your stories!</h1>-->
-        <!--<h2>In wich group do you want to share?</h2>-->
+        <h1>Share your stories!</h1>
+        <h2>In which group do you want to share?</h2>
         <form enctype=multipart/form-data action="{{ url_for('post') }}" method=POST>
-            <!--{% for group in groups %}-->
-            <!--<input type="radio" name="group" value="{{ group.id }}">{{ group.group_name }}<br>-->
-            <!--{% endfor %}-->
+
+            {% for group in groups %}
+            <input type="radio" name="group" value="{{ group.group_id }}">{{ group.groupname }}<br>
+            {% endfor %}
+
+            <textarea name="description" placeholder="Description"></textarea>
+
             {{ error }}
+
             <input type="file" name="photo">
             <input type="submit" name="action">
         </form>
