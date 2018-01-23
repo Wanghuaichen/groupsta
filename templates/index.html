@@ -6,7 +6,34 @@
 
 {% block main %}
     <body>
-        <h1>index</h1>
-        <p>Koekoek,dit is patrick :)</p>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+        <script>
+        function liveSearch(value){
+				value = value.trim(); // remove any spaces around the text
+				if(value != ""){ // don't make requests with an empty string
+					$.ajax({
+						url: "{{ url_for('search') }}",
+						data: {searchText: value},
+						dataType: "json",
+						success: function(data){
+							var res = "";
+							// create the html with results
+							for(i in data.results){
+								res += "<div>"+data.results[i]+"</div>";
+							}
+							$("#results").html(res);
+						}
+					});
+				}
+				else{
+					$("#results").html(""); // set the results empty in case of empty string
+				}
+			}
+        </script>
+
+        <input type=text onkeyup="liveSearch(this.value)">
+        <button>Search!</button>
+        <div id="results"></div>
     </body>
 {% endblock %}
