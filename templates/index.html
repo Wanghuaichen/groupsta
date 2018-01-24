@@ -9,31 +9,49 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
         <script>
-        function liveSearch(value){
-				value = value.trim(); // remove any spaces around the text
-				if(value != ""){ // don't make requests with an empty string
-					$.ajax({
-						url: "{{ url_for('search') }}",
-						data: {searchText: value},
-						dataType: "json",
-						success: function(data){
-							var res = "";
-							// create the html with results
-							for(i in data.results){
-								res += "<div>"+data.results[i]+"</div>";
+	        function liveSearch(value){
+					value = value.trim();
+					if(value != ""){
+						$.ajax({
+							url: "{{ url_for('search') }}",
+							data: {searchText: value},
+							dataType: "json",
+							success: function(data){
+								// print group_name
+								var res = "";
+								for(i in data.results){
+									res += "<div>"+data.results[i]+"</div>";
+								}
+								$("#results").html(res);
+
+								// print group_i
+								var id = ""
+								for(i in data.group_id){
+									id += data.group_id[i];
+								}
+								$("#id").html(id);
+
+								// print group_bio
+								var bio = "";
+								for(i in data.bio){
+									bio += "<div>"+data.bio[i]+"</div>";
+								}
+								$("#bio").html(bio);
 							}
-							$("#results").html(res);
-						}
-					});
+						});
+					}
+					else{
+						$("#results").html("");
+						$("#button").html("");
+						$("#bio").html("");
+					}
 				}
-				else{
-					$("#results").html(""); // set the results empty in case of empty string
-				}
-			}
         </script>
 
-        <input type=text onkeyup="liveSearch(this.value)">
-        <button>Search!</button>
-        <div id="results"></div>
-    </body>
+		<form action="{{ url_for('index') }}" method="post">
+	        <input type=text onkeyup="liveSearch(this.value)">
+			<div id="results"></div>
+			<button id="id" value="id"></button>
+			<div id="bio"></div>
+		</form>
 {% endblock %}
