@@ -181,6 +181,7 @@ def followgroup():
         # controls if a button is pressed and which button is pressed
         if request.form["action"]:
             group_id = request.form["action"]
+            session["group_id"] = group_id
 
             # the group_id of the pressed button will be transported to the follow function and returns the follow_id
             group = groups.Group(session["user_id"], group_id)
@@ -220,7 +221,7 @@ def post():
             choice = request.form["group"]
             if not choice:
                 return render_template("post.html", groups=following, error = "no group chosen")
-
+            session["group_id"] = choice
             # pull description of photo
             description = request.form["description"]
 
@@ -228,7 +229,7 @@ def post():
             path = file
             post.upload(path, choice, description)
 
-            return redirect(url_for("groupfeed.html"))
+            return redirect(url_for("groupfeed"))
 
         # if extension is not allowed
         else:
@@ -333,6 +334,7 @@ def create():
         # responds to the output
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists")
+        session["group_id"] = create
 
         return render_template("groupfeed.html")
     else:
@@ -342,12 +344,15 @@ def create():
 @login_required
 def groupfeed():
     # initiate functions
-    group_id = 3
+
+    group_id = session.get('group_id', None)
     group = groups.Group(session["user_id"], group_id)
     feed = group.loadfeed()
     groupinfo = group.groupinfo()
     name = groupinfo[0]["group_name"]
+
     if request.method == "POST":
         return "hello"
+
     else:
         return render_template("groupfeed.html", feed = feed, info = name)
