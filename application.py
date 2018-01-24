@@ -40,27 +40,33 @@ def index():
 
 @app.route("/search")
 def search():
+    # retrieve all the groups from the database
     user_id = session["user_id"]
     group = groups.Group(user_id, 0)
     data = group.loadgroups()
 
+    # request the input text from the form
     text = request.args['searchText']
 
+    # check if input text is in database data
     if len(text) >= 2:
-        result = []
+        result = {"results":[], "group_id":[], "bio":[]
+        }
         for element in data:
             for i in element:
                 if i == 'group_name':
                     searchable = element[i]
                     if str(text).lower() in str(searchable).lower():
-                        result.append(searchable)
+                        result["results"].append(searchable)
+                        result["group_id"].append(element["group_id"])
+                        result["bio"].append(element["bio"])
                 else:
                     pass
-
+        print(result)
         if not result:
             return json.dumps({"results":["No groups found"]})
 
-        return json.dumps({"results":result})
+        return json.dumps(result)
 
     else:
         return None
