@@ -56,6 +56,7 @@ class Group():
         return feed
 
     def groupinfo(self):
+        # loads basic information of the group
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = self.group_id)
         return info
 

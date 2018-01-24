@@ -347,12 +347,16 @@ def groupfeed():
 
     group_id = session.get('group_id', None)
     group = groups.Group(session["user_id"], group_id)
+    # loads feed
     feed = group.loadfeed()
+
+    # loads groups information
     groupinfo = group.groupinfo()
     name = groupinfo[0]["group_name"]
 
     if request.method == "POST":
-        return "hello"
+        return "TODO"
 
     else:
+        # returns page with feed and information
         return render_template("groupfeed.html", feed = feed, info = name)
