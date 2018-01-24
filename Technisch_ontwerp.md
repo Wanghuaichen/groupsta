@@ -151,4 +151,9 @@
   - https://www.phpmyadmin.net/
 - Giphy API
   - http://api.giphy.com
-- Wordt wellicht nog aangevuld met meer API's
+- Safygiphy API Wrapper
+  - https://github.com/StewPoll/safygiphy
+- Flask-uploads API
+  - https://pythonhosted.org/Flask-Uploads/
+  - https://github.com/maxcountryman/flask-uploads
+
