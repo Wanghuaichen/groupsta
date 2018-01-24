@@ -189,7 +189,7 @@ def followgroup():
             if result == None:
                 return render_template("followgroup.html", followable = followable, error = "You're already member of this group")
             else:
-                return render_template("groupfeed.html")
+                return redirect(url_for("groupfeed"))
 
     else:
         return render_template("followgroup.html", followable = followable)
@@ -336,7 +336,7 @@ def create():
             return render_template("create.html", missingtitle = "The title already exists")
         session["group_id"] = create
 
-        return render_template("groupfeed.html")
+        return redirect(url_for("groupfeed"))
     else:
         return render_template("create.html")
 
