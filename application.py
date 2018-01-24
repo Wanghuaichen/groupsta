@@ -222,7 +222,7 @@ def post():
             path = file
             post.upload(path, choice, description)
 
-            return redirect(url_for("index"))
+            return redirect(url_for("groupfeed.html"))
 
         # if extension is not allowed
         else:
@@ -339,7 +339,6 @@ def groupfeed():
     group_id = 3
     group = groups.Group(session["user_id"], group_id)
     feed = group.loadfeed()
-    groupinfo = group.groupinfo()
 
     if request.method == "POST":
         return "hello"
