@@ -30,7 +30,7 @@ Session(app)
 
 # configure flask_upload API
 photos = UploadSet("photos", IMAGES)
-app.config["UPLOADED_PHOTOS_DEST"] = "static/img"
+app.config["UPLOADED_PHOTOS_DEST"] = "static/img/"
 configure_uploads(app, photos)
 
 @app.route("/", methods=["GET", "POST"])
@@ -336,8 +336,10 @@ def create():
 @login_required
 def groupfeed():
     # initiate functions
+    group_id = 3
     group = groups.Group(session["user_id"], group_id)
     feed = group.loadfeed()
+    groupinfo = group.groupinfo()
 
     if request.method == "POST":
         return "hello"

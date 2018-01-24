@@ -16,7 +16,7 @@
                         {{ post.description }}
                         <BR>
                     </p>
-                    <img src=" {{url_for(post.post_path)}}">
+                    <img src="static/img/{{ post.post_path }}" alt={{ post.post_id }} width="300" height="300"/>
                 {% endfor %}
         </body>
     </div>
