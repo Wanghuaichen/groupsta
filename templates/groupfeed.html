@@ -8,7 +8,7 @@
 <body class="body_log_reg">
     <div class="container_log_reg">
         <body>
-            <h1>Groupfeed</h1>
+            <h1>{{ info }}</h1>
                 {% for post in feed %}
                     <p>
                         {{ post.username }}
@@ -22,3 +22,4 @@
     </div>
 </body>
 {% endblock %}
+

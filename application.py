@@ -345,8 +345,9 @@ def groupfeed():
     group_id = 3
     group = groups.Group(session["user_id"], group_id)
     feed = group.loadfeed()
-
+    groupinfo = group.groupinfo()
+    name = groupinfo[0]["group_name"]
     if request.method == "POST":
         return "hello"
     else:
-        return render_template("groupfeed.html", feed = feed)
+        return render_template("groupfeed.html", feed = feed, info = name)
