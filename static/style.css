@@ -120,3 +120,21 @@ h1 {
     height: 20px;
     border-radius: 50%;
 }
+
+#result {
+    position: absolute;
+    background-color: white;
+    width: 196px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+#result a {
+    padding-left: 12px;
+}
