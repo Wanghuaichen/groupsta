@@ -35,7 +35,7 @@
 					value = value.trim();
 					if(value != ""){
 						$.ajax({
-							url: "{{ url_for('search') }}",
+							url: "{{ url_for('livesearch') }}",
 							data: {searchText: value},
 							dataType: "json",
 							success: function(data){
@@ -64,9 +64,9 @@
             </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar">
                     {% if session.user_id %}
-                    <form class="navbar-form navbar-right" role="search">
+                    <form action="{{ url_for('search') }}" class="navbar-form navbar-right" role="search" method=post>
                         <div class="form-group">
-                            <input class="form-control glyphicon" placeholder="&#xe003" type="text" onkeyup="liveSearch(this.value)">
+                            <input class="form-control" placeholder="Search" type="text" onkeyup="liveSearch(this.value)" required>
                             <div id="result"></div>
                         </div>
                         <button type="submit" class="btn">Search</button>
