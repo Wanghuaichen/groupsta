@@ -1,14 +1,19 @@
 /* IMPORT FONTS */
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=PT+Sans');
 
+@import url('https://fonts.googleapis.com/css?family=Varela');
+
+body, html, .container-fluid, .sidebar, .body {
+    height: 100%;
+    min-height: 100%;
+    margin:0;
+}
 
 /* OVERALL */
 .container {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: none;
+    background-color: #ffffff;
 }
 
 .missing {
@@ -16,12 +21,14 @@
 }
 
 h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Varela', sans-serif;
 }
 
 /* NAVIGATION LOGGED OUT */
+
+
 .navbar {
-    margin-top: 3vh;
+    margin-top: 0vh;
     background-image: none;
     -webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -54,7 +61,7 @@ h1 {
 }
 
 #logged_out_nav a {
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Lucida Console', sans-serif;
     font-weight: 500;
     text-decoration: none;
     color: #828282;
@@ -75,7 +82,7 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
-    padding: 1vw;
+    padding: 3vw;
     border: 1px solid #d8d8d8;
 }
 
@@ -104,4 +111,11 @@ h1 {
 
 #log_reg_button:hover {
     background: #5ea1c9 !important;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
 }

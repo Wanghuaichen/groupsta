@@ -6,6 +6,7 @@
 
 {% block main %}
 <body class="body_log_reg">
+    <center>
     <div class="container_log_reg">
         <h1>Log In</h1>
         <p class="missing">{{ failure }}</p>
@@ -24,6 +25,9 @@
                 </div>
             </fieldset>
         </form>
+
+        No account yet? <a href="{{ url_for('register') }}">Register here</a>
     </div>
+    </center>
 </body>
 {% endblock %}

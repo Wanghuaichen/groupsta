@@ -360,3 +360,17 @@ def groupfeed():
     else:
         # returns page with feed and information
         return render_template("groupfeed.html", feed = feed, info = name)
+
+
+# load groups for sidebar
+@app.route("/grouplist", methods=["GET"])
+@login_required
+def grouplist():
+    # retrieve all the groups from the database
+    db = SQL("sqlite:///groupsta.db")
+    loggedin_user = session["user_id"]
+
+    # select groupnames that apply to current user-login
+    groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id=session["user_id"])
+
+    return render_template("grouplist.html", groupnames = groups)
