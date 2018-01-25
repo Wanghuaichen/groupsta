@@ -9,6 +9,7 @@ import json
 from helpers import *
 import time
 from models import users, groups, posts
+import safygiphy
 
 # configure application
 app = Flask(__name__)
@@ -32,7 +33,6 @@ Session(app)
 photos = UploadSet("photos", IMAGES)
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img/"
 configure_uploads(app, photos)
-
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -396,3 +396,50 @@ def grouplist():
     groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id=session["user_id"])
 
     return render_template("grouplist.html", groupnames = groups)
+
+# GIPHY TEST
+@app.route("/giphy", methods = ["GET", "POST"])
+@login_required
+def giphy():
+
+    # instantiate giphy, post class
+    giphy = safygiphy.Sticky(token="aYiNwV98zSwp2eeIQ1ucWNpAtEaTt51r")
+    post = posts.Post(session["user_id"])
+
+    # max gifs to be retrieved from API
+    limit = 25
+
+    # retrieve trending gifs
+    result = giphy.trending(limit=limit)
+
+    # retrieve urls and store in list
+    result_list = [result["data"][i]["images"]["fixed_width_small"]["url"] for i in range(limit)]
+
+    if request.method == "POST":
+
+        # retrieve gif link
+        gif_link = request.form.get("gif")
+
+        # insert link into comment table
+        # post_id hardcoded
+        comment = post.comment(1, gif_link)
+
+        # nog niet af
+
+        if comment == True:
+
+            # hardcoded post_id 1
+            comments = post.loadcomments(1)
+            return render_template("giphy.html", msg = "Success", gif_list = result_list, comments=comments)
+
+        else:
+            # hardcoded post_id 1
+            comments = post.loadcomments(1)
+            return render_template("giphy.html", msg = "failure", gif_list = result_list, comments=comments)
+
+    else:
+
+        # hardcoded post_id 1
+        comments = post.loadcomments(1)
+
+        return render_template("giphy.html", gif_list = result_list, comments=comments)
