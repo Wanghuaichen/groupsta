@@ -1,6 +1,5 @@
 from cs50 import SQL
 from passlib.apps import custom_app_context as pwd_context
-from giphypop import trending
 
 # configure CS50 Library to use SQlite database
 db = SQL("sqlite:///groupsta.db")
