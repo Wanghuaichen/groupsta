@@ -38,6 +38,11 @@ configure_uploads(app, photos)
 def index():
     return render_template("index.html")
 
+@app.route("/<group_id>")
+@login_required
+def group(group_id):
+    return render_template("index.html")
+
 @app.route("/search")
 def search():
     # retrieve all the groups from the database
