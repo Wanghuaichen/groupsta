@@ -24,42 +24,24 @@
 							data: {searchText: value},
 							dataType: "json",
 							success: function(data){
-								// print group_name
-								var res = "";
-								for(i in data.results){
-									res += "<div>"+data.results[i]+"</div>";
-								}
-								$("#results").html(res);
-
-								// print group_i
-								var id = ""
+								var result = ""
 								for(i in data.group_id){
-									id += data.group_id[i];
+									result += '<a href="/' + data.results[i] + '">' + data.results[i] + '</a>'
 								}
-								$("#id").html(id);
-
-								// print group_bio
-								var bio = "";
-								for(i in data.bio){
-									bio += "<div>"+data.bio[i]+"</div>";
-								}
-								$("#bio").html(bio);
+								$("#result").html(result);
 							}
 						});
 					}
 					else{
-						$("#results").html("");
-						$("#button").html("");
-						$("#bio").html("");
+						$("#result").html("");
+
 					}
 				}
         </script>
 
 		<form action="{{ url_for('index') }}" method="post">
 	        <input type=text onkeyup="liveSearch(this.value)">
-			<div id="results"></div>
-			<button id="id" value="id"></button>
-			<div id="bio"></div>
+			<div id="result"></div>
 		</form>
 
 
