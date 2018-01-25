@@ -10,43 +10,8 @@
 
 
 {% block main %}
-
-
-    <body>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
-        <script>
-	        function liveSearch(value){
-					value = value.trim();
-					if(value != ""){
-						$.ajax({
-							url: "{{ url_for('search') }}",
-							data: {searchText: value},
-							dataType: "json",
-							success: function(data){
-								var result = ""
-								for(i in data.group_id){
-									result += '<a href="/' + data.results[i] + '">' + data.results[i] + '</a>'
-								}
-								$("#result").html(result);
-							}
-						});
-					}
-					else{
-						$("#result").html("");
-
-					}
-				}
-        </script>
-
-		<form action="{{ url_for('index') }}" method="post">
-	        <input type=text onkeyup="liveSearch(this.value)">
-			<div id="result"></div>
-		</form>
-
-
-
-
+	<body>
+	</body>
 {% endblock %}
 
 {% block grouplist %}
