@@ -28,6 +28,32 @@
 
         <title>GROUPSTA{% block title %}{% endblock %}</title>
 
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+        <script>
+	        function liveSearch(value){
+					value = value.trim();
+					if(value != ""){
+						$.ajax({
+							url: "{{ url_for('search') }}",
+							data: {searchText: value},
+							dataType: "json",
+							success: function(data){
+								var result = ""
+								for(i in data.group_id){
+									result += '<a href="/' + data.results[i] + '">' + data.results[i] + '</a>' + '<br>'
+								}
+								$("#result").html(result);
+							}
+						});
+					}
+					else{
+						$("#result").html("");
+
+					}
+				}
+        </script>
+
     </head>
     <body>
 
@@ -40,7 +66,8 @@
                     {% if session.user_id %}
                     <form class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input class="form-control" placeholder=" Search" type="text">
+                            <input class="form-control" placeholder="Search" type="text" onkeyup="liveSearch(this.value)">
+                            <div id="result"></div>
                         </div>
                         <button type="submit" class="btn">Search</button>
                     </form>
