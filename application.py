@@ -52,16 +52,10 @@ def index():
 def group(group_id):
     return render_template("index.html")
 
-@app.route("/search", methods=["GET", "POST"])
-@login_required
-def search():
-    pass
-
-
-
-
 @app.route("/livesearch")
 def livesearch():
+    global search_results
+    search_results = None
     # retrieve all the groups from the database
     user_id = session["user_id"]
     group = groups.Group(user_id, 0)
@@ -84,14 +78,19 @@ def livesearch():
                         result["bio"].append(element["bio"])
                 else:
                     pass
-        print(result)
-        if not result:
-            return json.dumps({"results":["No groups found"]})
-
+        search_results = result
         return json.dumps(result)
 
     else:
         return None
+
+@app.route("/search", methods=["GET", "POST"])
+@login_required
+def search():
+    results = search_results["results"]
+    if not results:
+        results = ["No groups found"]
+    return render_template("search.html", results = results)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
