@@ -33,18 +33,35 @@ photos = UploadSet("photos", IMAGES)
 app.config["UPLOADED_PHOTOS_DEST"] = "static/img/"
 configure_uploads(app, photos)
 
+
+
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    # retrieve all the groups from the database
+    db = SQL("sqlite:///groupsta.db")
+    loggedin_user = session["user_id"]
+
+    # select groupnames that apply to current user-login
+    groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id=session["user_id"])
+
+    return render_template("index.html", groupnames = groups)
 
 @app.route("/<group_id>")
 @login_required
 def group(group_id):
     return render_template("index.html")
 
-@app.route("/search")
+@app.route("/search", methods=["GET", "POST"])
+@login_required
 def search():
+    pass
+
+
+
+
+@app.route("/livesearch")
+def livesearch():
     # retrieve all the groups from the database
     user_id = session["user_id"]
     group = groups.Group(user_id, 0)
