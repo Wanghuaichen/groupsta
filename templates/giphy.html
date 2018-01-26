@@ -9,12 +9,20 @@
     <h1>{{ msg }}</h1>
 
     <h2>comments</h2>
+
     {% for comment in comments %}
-    <p><img src="{{ comment.comment }}"></p>
+
+        {% if comment.comment_gif != "empty" %}
+            <p><img src="{{ comment.comment_gif }}"></p>
+        {% endif %}
+
+        {% if comment.comment != "empty" %}
+            <p>{{ comment.comment }}</p>
+        {% endif %}
+
     {% endfor %}
     <div class="btn-group">
         <form action="{{ url_for('giphy') }}" method="post">
-
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Comment a Gif
             <span class="glyphicon glyphicon-chevron-down"></span>
@@ -23,12 +31,10 @@
         <ul class="dropdown-menu">
             <li class="dropdown-header">Choose a gif </li>
             {% for gif in gif_list %}
-            <li>
-                <input type="image" src="{{ gif }}" name="gif" value="{{ gif }}"/>
-            </li>
-              {% endfor %}
+            <li><input type="image" src="{{ gif }}" name="gif" value="{{ gif }}"/></li>
+            {% endfor %}
         </ul>
         </form>
       </div>
-</body>
+    </body>
 {% endblock %}

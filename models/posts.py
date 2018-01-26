@@ -32,12 +32,29 @@ class Post():
                 name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
 
                 # import comment into databse
-                db.execute("INSERT INTO comment (post_id, user_id, username, comment) \
-                           VALUES (:post_id, :user_id, :username, :comment)",
+                db.execute("INSERT INTO comment (post_id, user_id, username, comment, comment_gif) \
+                           VALUES (:post_id, :user_id, :username, :comment, :comment_gif)",
                            post_id = post_id,
                            user_id = self.user_id,
                            username = name[0]["username"],
-                           comment = comment)
+                           comment = comment,
+                           comment_gif = "empty")
+
+                return True
+
+        def comment_gif(self, post_id, comment_gif):
+
+                # look up username using user_id
+                name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
+
+                # import comment into databse
+                db.execute("INSERT INTO comment (post_id, user_id, username, comment, comment_gif) \
+                           VALUES (:post_id, :user_id, :username, :comment, :comment_gif)",
+                           post_id = post_id,
+                           user_id = self.user_id,
+                           username = name[0]["username"],
+                           comment = "empty",
+                           comment_gif = comment_gif)
 
                 return True
 
