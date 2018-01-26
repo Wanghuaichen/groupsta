@@ -138,3 +138,8 @@ h1 {
 #result a {
     padding-left: 12px;
 }
+
+/* INDEX SIDE BAR */
+.col-sm-3 {
+    height: 100vw;
+}
