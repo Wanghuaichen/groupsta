@@ -60,7 +60,7 @@ class Group():
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = self.group_id)
         return info
 
-    def nametoid(self, groupname)
+    def nametoid(self, groupname):
         group_id = db.execute("SELECT group_id FROM groups WHERE group_name = :group_name", group_name = groupname)
         group_id = int(group_id[0]['group_id'])
         return group_id

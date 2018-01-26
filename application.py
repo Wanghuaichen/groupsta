@@ -50,7 +50,24 @@ def index():
 @app.route("/<group_id>")
 @login_required
 def group(group_id):
-    return render_template("index.html")
+    print(group_id)
+    group = groups.Group(session["user_id"], 1)
+    group_id = group.nametoid(group_id)
+    group = groups.Group(session["user_id"], group_id)
+
+    feed = group.loadfeed()
+
+    # loads groups information
+    groupinfo = group.groupinfo()
+    print(groupinfo)
+    name = groupinfo[0]["group_name"]
+
+    if request.method == "POST":
+        return "TODO"
+
+    else:
+        # returns page with feed and information
+        return render_template("index.html", feed = feed, info = name)
 
 @app.route("/livesearch")
 def livesearch():
