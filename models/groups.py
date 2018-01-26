@@ -65,3 +65,7 @@ class Group():
         group_id = int(group_id[0]['group_id'])
         return group_id
 
+    def followed(self):
+        # select groupnames that apply to current user-login
+        groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
+        return groups

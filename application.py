@@ -38,14 +38,11 @@ configure_uploads(app, photos)
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    # retrieve all the groups from the database
-    db = SQL("sqlite:///groupsta.db")
-    loggedin_user = session["user_id"]
 
-    # select groupnames that apply to current user-login
-    groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id=session["user_id"])
+    group = groups.Group(session["user_id"], 1)
+    groupfollow = group.followed()
 
-    return render_template("index.html", groupnames = groups)
+    return render_template("index.html", groupnames = groupfollow)
 
 @app.route("/<group_id>")
 @login_required
@@ -62,12 +59,14 @@ def group(group_id):
     print(groupinfo)
     name = groupinfo[0]["group_name"]
 
+    groupfollow = group.followed()
+
     if request.method == "POST":
         return "TODO"
 
     else:
         # returns page with feed and information
-        return render_template("index.html", feed = feed, info = name)
+        return render_template("index.html", feed = feed, info = name, groupnames = groupfollow)
 
 @app.route("/livesearch")
 def livesearch():
@@ -399,19 +398,6 @@ def groupfeed():
         # returns page with feed and information
         return render_template("groupfeed.html", feed = feed, info = name)
 
-
-# load groups for sidebar
-@app.route("/grouplist", methods=["GET"])
-@login_required
-def grouplist():
-    # retrieve all the groups from the database
-    db = SQL("sqlite:///groupsta.db")
-    loggedin_user = session["user_id"]
-
-    # select groupnames that apply to current user-login
-    groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id=session["user_id"])
-
-    return render_template("grouplist.html", groupnames = groups)
 
 # GIPHY TEST
 @app.route("/giphy", methods = ["GET", "POST"])
