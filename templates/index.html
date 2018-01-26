@@ -11,13 +11,23 @@
 
 {% block main %}
 	<body>
+	    <h1>{{ info }}</h1>
+	    {% for post in feed %}
+	        <p>
+	            {{ post.username }}
+	            <BR>
+	            {{ post.description }}
+	            <BR>
+	        </p>
+	        <img src="static/img/{{ post.post_path }}" alt={{ post.post_id }} width="300" height="300"/>
+	    {% endfor %}
 	</body>
 {% endblock %}
 
 {% block grouplist %}
 
     {% for groupname in groupnames %}
-        <li><a href="#">{{ groupname.groupname }}</a></li>
+        <li><a href={{ groupname.groupname }}>{{ groupname.groupname }}</a></li>
     {% endfor %}
 
 {% endblock %}
