@@ -197,3 +197,33 @@ main {
 #sidebar {
     position: fixed;
 }
+
+/* gif menu */
+
+#gif-img {
+    width: 75px;
+    height: 75px;
+}
+
+#gif-menu {
+    min-width: 0px !important;
+    min-height: 0px !important;
+    width: 405px;
+
+}
+
+#gif-btn {
+    width: 50px;
+    background: #6eb9e5 !important;
+    color: #fff;
+}
+
+#gif-header {
+    margin-left: -5px;
+}
+
+#gif-item {
+    float:left;
+    box-shadow: 0 0 1px #719ECE;
+    margin-left: 5px;
+}

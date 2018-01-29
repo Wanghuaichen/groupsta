@@ -422,11 +422,11 @@ def giphy():
 
         # insert link into comment table
         # post_id hardcoded
-        comment = post.comment(1, gif_link)
+        comment_gif = post.comment_gif(1, gif_link)
 
         # nog niet af
 
-        if comment == True:
+        if comment_gif == True:
 
             # hardcoded post_id 1
             comments = post.loadcomments(1)
