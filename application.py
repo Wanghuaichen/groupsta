@@ -230,7 +230,7 @@ def followgroup():
 
     # instantiate functions
     group = groups.Group(session["user_id"], 0)
-    followable = group.loadgroups()
+    followable = group.exploregroups()
 
     if request.method == "POST":
         # controls if a button is pressed and which button is pressed
