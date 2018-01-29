@@ -58,6 +58,6 @@ class Post():
 
                 return True
 
-        def loadcomments(self, post_id):
-                result = db.execute("SELECT * FROM comment WHERE post_id = :post_id", post_id=post_id)
-                return result
+        def loadcomments(self):
+                comments = db.execute("SELECT * FROM comment")
+                return comments

@@ -39,31 +39,60 @@ configure_uploads(app, photos)
 @login_required
 def index():
 
+    # instantiate giphy, post and Group
+    giphy = safygiphy.Sticky(token="aYiNwV98zSwp2eeIQ1ucWNpAtEaTt51r")
+    post = posts.Post(session["user_id"])
     group = groups.Group(session["user_id"])
+
+    # retrieve data
     groupfollow = group.followed()
     feed = group.mainfeed()
+    trending = giphy.trending(limit=25)
+    trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
+    comments = post.loadcomments()
 
+    if request.method == "POST":
 
-    return render_template("index.html", groupnames = groupfollow, feed = feed)
+        # retrieve data
+        gif_link = request.form.get("gif")
+        post_id = request.form.get("post_id")
+        comment = request.form.get("comment")
+
+        # if text comment
+        if not gif_link:
+            post.comment(post_id, comment)
+            comments = post.loadcomments()
+            return render_template("index.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
+
+        else:
+            post.comment_gif(post_id, gif_link)
+            comments = post.loadcomments()
+            return render_template("index.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
+
+    else:
+        return render_template("index.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
+
 
 @app.route("/<group_name>")
 @login_required
 def group(group_name):
 
-    # instantiate group function, retrieve group id
+    # instantiate giphy, post and Group
+    giphy = safygiphy.Sticky(token="aYiNwV98zSwp2eeIQ1ucWNpAtEaTt51r")
+    post = posts.Post(session["user_id"])
     group = groups.Group(session["user_id"])
     group_id = group.nametoid(group_name)
 
-    # loads group info, group feed and groups followed
-    name = group.groupinfo(group_id)
+    # retrieve data
+    group_id = group.nametoid(group_name)
+    info = group.groupinfo(group_id)
     feed = group.loadfeed(group_id)
     groupfollow = group.followed()
+    trending = giphy.trending(limit=25)
+    trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
+    comments = post.loadcomments()
 
-    if request.method == "POST":
-        return "TODO"
-
-    else:
-        return render_template("index.html", feed = feed, info = name, groupnames = groupfollow)
+    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments)
 
 @app.route("/livesearch")
 def livesearch():
@@ -366,11 +395,39 @@ def settings():
 @login_required
 def profile():
 
+    # instantiate giphy, post, group and user
+    giphy = safygiphy.Sticky(token="aYiNwV98zSwp2eeIQ1ucWNpAtEaTt51r")
+    post = posts.Post(session["user_id"])
+    group = groups.Group(session["user_id"])
     user = users.User(session["user_id"])
-    feed = user.profilefeed()
 
-    #TODO
-    return render_template("profile.html", feed = feed)
+    # retrieve data
+    groupfollow = group.followed()
+    feed = user.profilefeed()
+    trending = giphy.trending(limit=25)
+    trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
+    comments = post.loadcomments()
+
+    if request.method == "POST":
+
+        # retrieve data
+        gif_link = request.form.get("gif")
+        post_id = request.form.get("post_id")
+        comment = request.form.get("comment")
+
+        # if text comment
+        if not gif_link:
+            post.comment(post_id, comment)
+            comments = post.loadcomments()
+            return render_template("profile.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
+
+        else:
+            post.comment_gif(post_id, gif_link)
+            comments = post.loadcomments()
+            return render_template("profile.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
+
+    else:
+        return render_template("profile.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
@@ -397,48 +454,3 @@ def create():
     else:
         return render_template("create.html")
 
-
-# GIPHY TEST
-@app.route("/giphy", methods = ["GET", "POST"])
-@login_required
-def giphy():
-
-    # instantiate giphy, post class
-    giphy = safygiphy.Sticky(token="aYiNwV98zSwp2eeIQ1ucWNpAtEaTt51r")
-    post = posts.Post(session["user_id"])
-
-    # max gifs to be retrieved from API
-    limit = 25
-
-    # retrieve trending gifs, store in list
-    result = giphy.trending(limit=limit)
-    result_list = [result["data"][i]["images"]["fixed_width_small"]["url"] for i in range(limit)]
-
-    if request.method == "POST":
-
-        # retrieve gif link
-        gif_link = request.form.get("gif")
-
-        # insert link into comment table
-        # post_id hardcoded
-        comment_gif = post.comment_gif(1, gif_link)
-
-        # nog niet af
-
-        if comment_gif == True:
-
-            # hardcoded post_id 1
-            comments = post.loadcomments(1)
-            return render_template("giphy.html", msg = "Success", gif_list = result_list, comments=comments)
-
-        else:
-            # hardcoded post_id 1
-            comments = post.loadcomments(1)
-            return render_template("giphy.html", msg = "failure", gif_list = result_list, comments=comments)
-
-    else:
-
-        # hardcoded post_id 1
-        comments = post.loadcomments(1)
-
-        return render_template("giphy.html", gif_list = result_list, comments=comments)

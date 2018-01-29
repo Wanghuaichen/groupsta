@@ -227,7 +227,7 @@ main {
 }
 
 #gif-btn {
-    width: 50px;
+    width: 30%;
     background: #6eb9e5 !important;
     color: #fff;
 }
@@ -240,4 +240,10 @@ main {
     float:left;
     box-shadow: 0 0 1px #719ECE;
     margin-left: 5px;
+}
+
+/* comments */
+
+#comment-gif {
+    width: 40px;
 }
