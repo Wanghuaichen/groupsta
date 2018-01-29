@@ -32,6 +32,14 @@
 						<input class="form-control" placeholder="Leave a comment" type="text" required>
 						<button>Comment!</button>
 					</form>
+					<form action="{{ url_for('giphy') }}" method="post">
+				        <button type="button" class="btn btn-default dropdown-toggle" id="gif-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gif</button>
+				        <ul class="dropdown-menu" id="gif-menu">
+				            {% for gif in gif_list %}
+				            <li id="gif-item"><input type="image" src="{{ gif }}" name="gif" value="{{ gif }}" id="gif-img"/></li>
+				            {% endfor %}
+				        </ul>
+			        </form>
 				</div>
 			</div>
 	    </div>
