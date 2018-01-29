@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Index
+{% endblock %}
+
+
+{% block main %}
+	<body>
+	    <h1>Groups found:</h1>
+	    <form action="{{ url_for('search') }}" method="post">
+            <p class="missing">{{ error }}</p>
+            {% for group in group_info %}
+                {{ group.group_name }} <br>
+                {{ group.bio }} <br>
+                <button name="action" type="submit" value="{{ group.group_id }}">Join this group now</button>
+                <BR>
+            {% endfor %}
+        </form>
+	</body>
+{% endblock %}
+
+
+{% block grouplist %}
+    {% for groupname in groupnames %}
+        <li><a href="#">{{ groupname.groupname }}</a></li>
+    {% endfor %}
+{% endblock %}

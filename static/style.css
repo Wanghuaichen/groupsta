@@ -5,7 +5,11 @@
 body, html, .container-fluid, .sidebar, .body {
     height: 100%;
     min-height: 100%;
-    margin:0;
+    margin: 0;
+}
+
+body {
+    background-color: #f7f7f7
 }
 
 /* OVERALL */
@@ -35,6 +39,7 @@ h1 {
 	-moz-box-shadow: none;
 	box-shadow: none;
 	border: none;
+	background-color: #000;
 }
 
 .logo img {
@@ -45,33 +50,6 @@ h1 {
     margin-bottom: 1vw;
 }
 
-#logged_out_nav {
-    text-align: center;
-    padding: 0;
-}
-
-#logged_out_nav ul {
-    display: inline-block;
-    list-style-type: none;
-}
-
-#logged_out_nav li {
-    display: inline-block;
-    padding-bottom: 0.5vh;
-    margin: 1vw;
-}
-
-#logged_out_nav a {
-    font-family: 'Lucida Console', sans-serif;
-    font-weight: 500;
-    text-decoration: none;
-    color: #828282;
-    text-transform: uppercase;
-}
-
-#logged_out_nav a:hover {
-    color: #4f4f4f;
-}
 
 /* LOGIN AND REGISTER */
 .body_log_reg {
@@ -142,4 +120,76 @@ h1 {
 /* INDEX SIDE BAR */
 .col-sm-3 {
     height: 100vw;
+}
+
+/* FEED */
+main {
+    margin-left:25vw;
+}
+
+.post-container {
+    width: 80%;
+    height: 300px;
+    display: inline-block;
+    margin-bottom: 2vh;
+    background-color: #fcfcfc;
+    -webkit-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
+    -moz-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
+    box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
+}
+
+.post-container .post-container-img {
+    width: 60%;
+    height: 100%;
+    float: left;
+    vertical-align: middle;
+}
+
+.post-container-img img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.post-container .post-container-description {
+    float: right;
+    height: 300px;
+    width: 40%;
+    background-color: #fff;
+    text-align: left;
+    position: relative;
+}
+
+.info {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5%;
+}
+
+.post-container .post-container-description span {
+    font-weight: bold;
+}
+
+.comment-form {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.post-container .post-container-description .comment-form input {
+    width: 70%;
+    float: left;
+    height: 40px;
+    background-color: #f7f7f7;
+    border-style: none;
+    border-radius: 0;
+}
+
+.post-container .post-container-description .comment-form button {
+    width: 30%;
+    float: right;
+    border: none;
+    background: #6eb9e5 !important;
+    color: #fff;
+    border-radius: 0;
+    height: 40px;
 }

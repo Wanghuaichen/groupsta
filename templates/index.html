@@ -13,13 +13,28 @@
 	<body>
 	    <h1>{{ info }}</h1>
 	    {% for post in feed %}
-	        <p>
-	            {{ post.username }}
-	            <BR>
-	            {{ post.description }}
-	            <BR>
-	        </p>
-	        <img src="static/img/{{ post.post_path }}" alt={{ post.post_id }} width="300" height="300"/>
+	    <div class="post-container">
+	    	<div class="post-container-img">
+	    		<img src="static/img/{{ post.post_path }}" alt="{{ post.post_id }}"/>
+	    	</div>
+	    	<div class="post-container-description">
+	    		<div class="info">
+			        <p>
+			        	<span>Post by: {{ post.username }}</span>
+			            <br>
+			            {{ post.description }}
+		        	</p>
+		        	{% for comment in comments %}
+		        	{% endfor %}
+	        	</div>
+	        	<div class="comment-form">
+		        	<form action="{{ url_for('index') }}" >
+						<input class="form-control" placeholder="Leave a comment" type="text" required>
+						<button>Comment!</button>
+					</form>
+				</div>
+			</div>
+	    </div>
 	    {% endfor %}
 	</body>
 {% endblock %}
@@ -27,7 +42,7 @@
 {% block grouplist %}
 
     {% for groupname in groupnames %}
-        <li><a href={{ groupname.groupname }}>{{ groupname.groupname }}</a></li>
+        <li><a href="{{ groupname.groupname }}">{{ groupname.groupname }}</a></li>
     {% endfor %}
 
 {% endblock %}
