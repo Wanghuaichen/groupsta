@@ -52,20 +52,42 @@ class Group():
 
     def loadfeed(self):
         # loads all posts of a group
-        feed = db.execute("SELECT * FROM posts WHERE group_id = :group_id", group_id = self.group_id)
-        return feed
+        count = db.execute("SELECT count(*) FROM posts;")
+        if len(count) != 0:
+            count = int(count[0]['count(*)'])
+            feed = db.execute("SELECT * FROM posts WHERE group_id = :group_id ORDER BY time DESC Limit :count;", group_id = self.group_id, count = count)
+            return feed
+        else:
+            return None
 
     def groupinfo(self):
         # loads basic information of the group
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = self.group_id)
-        return info
+        if len(info) != 0:
+            name = info[0]["group_name"]
+            return name
+        else:
+            return None
 
     def nametoid(self, groupname):
         group_id = db.execute("SELECT group_id FROM groups WHERE group_name = :group_name", group_name = groupname)
-        group_id = int(group_id[0]['group_id'])
-        return group_id
+        if len(group_id) != 0:
+            group_id = int(group_id[0]['group_id'])
+            return group_id
+        else:
+            return None
 
     def followed(self):
         # select groupnames that apply to current user-login
         groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
         return groups
+
+    def mainfeed(self):
+        # loads all posts of groups you follow
+        count = db.execute("SELECT count(*) FROM posts;")
+        print (count)
+        if len(count) != 0:
+            count = int(count[0]['count(*)'])
+            posts = db.execute("SELECT * FROM posts WHERE group_id IN (SELECT group_id FROM follow WHERE user_id = :user_id) ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
+            return posts
+        return None

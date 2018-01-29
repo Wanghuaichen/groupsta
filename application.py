@@ -41,13 +41,14 @@ def index():
 
     group = groups.Group(session["user_id"], 1)
     groupfollow = group.followed()
+    feed = group.mainfeed()
 
-    return render_template("index.html", groupnames = groupfollow)
+
+    return render_template("index.html", groupnames = groupfollow, feed = feed)
 
 @app.route("/<group_id>")
 @login_required
 def group(group_id):
-    print(group_id)
     group = groups.Group(session["user_id"], 1)
     group_id = group.nametoid(group_id)
     group = groups.Group(session["user_id"], group_id)
@@ -55,9 +56,8 @@ def group(group_id):
     feed = group.loadfeed()
 
     # loads groups information
-    groupinfo = group.groupinfo()
-    print(groupinfo)
-    name = groupinfo[0]["group_name"]
+    name = group.groupinfo()
+
 
     groupfollow = group.followed()
 
@@ -226,7 +226,7 @@ def followgroup():
             if result == None:
                 return render_template("followgroup.html", followable = followable, error = "You're already member of this group")
             else:
-                return redirect(url_for("groupfeed"))
+                return redirect(url_for("index"))
 
     else:
         return render_template("followgroup.html", followable = followable)
@@ -266,7 +266,7 @@ def post():
             path = file
             post.upload(path, choice, description)
 
-            return redirect(url_for("groupfeed"))
+            return redirect(url_for("index"))
 
         # if extension is not allowed
         else:
@@ -373,30 +373,9 @@ def create():
             return render_template("create.html", missingtitle = "The title already exists")
         session["group_id"] = create
 
-        return redirect(url_for("groupfeed"))
+        return redirect(url_for("index"))
     else:
         return render_template("create.html")
-
-@app.route("/groupfeed", methods=["GET", "POST"])
-@login_required
-def groupfeed():
-    # initiate functions
-
-    group_id = session.get('group_id', None)
-    group = groups.Group(session["user_id"], group_id)
-    # loads feed
-    feed = group.loadfeed()
-
-    # loads groups information
-    groupinfo = group.groupinfo()
-    name = groupinfo[0]["group_name"]
-
-    if request.method == "POST":
-        return "TODO"
-
-    else:
-        # returns page with feed and information
-        return render_template("groupfeed.html", feed = feed, info = name)
 
 
 # GIPHY TEST
