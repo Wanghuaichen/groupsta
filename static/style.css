@@ -193,3 +193,7 @@ main {
     border-radius: 0;
     height: 40px;
 }
+
+#sidebar {
+    position: fixed;
+}
