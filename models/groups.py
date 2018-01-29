@@ -6,11 +6,12 @@ db = SQL("sqlite:///groupsta.db")
 
 class Group():
 
-    def __init__(self, user_id, group_id):
+    def __init__(self, user_id):
         self.user_id = user_id
-        self.group_id = group_id
+
 
     def create(self, title, description):
+
         # check if title already exist
         result = db.execute("SELECT * FROM groups WHERE group_name = :title", title=title)
         if len(result) != 0:
@@ -25,49 +26,52 @@ class Group():
         result = db.execute("INSERT INTO follow (user_id, group_id, groupname, admin) VALUES (:user_id, :group_id, :groupname, :admin)", user_id = self.user_id, group_id = group_id, groupname = title, admin = int(1))
         return group_id
 
-    def follow(self):
-        result = db.execute("SELECT * FROM follow WHERE group_id=:group_id AND user_id=:user_id", group_id = self.group_id, user_id = self.user_id)
+    def follow(self, group_id):
+        result = db.execute("SELECT * FROM follow WHERE group_id=:group_id AND user_id=:user_id", group_id = group_id, user_id = self.user_id)
         if len(result) != 0:
             return None
 
         # collects groupname for the group_id
-        groupname = db.execute("SELECT group_name FROM groups WHERE group_id=:group_id", group_id=self.group_id)
+        groupname = db.execute("SELECT group_name FROM groups WHERE group_id=:group_id", group_id=group_id)
         groupname = str(groupname[0]['group_name'])
-        group_id = self.group_id
 
         # insert into new following request in the follow database
         result = db.execute("INSERT INTO follow (user_id, group_id, groupname, admin) VALUES (:user_id, :group_id, :groupname, :admin)", \
         user_id = self.user_id, group_id = group_id, groupname = groupname, admin = int(0))
 
         # returns follow_id to application.py
-        follow_id = db.execute("SELECT follow_id from follow WHERE group_id = :group_id AND user_id = :user_id", group_id = self.group_id, user_id = self.user_id)
+        follow_id = db.execute("SELECT follow_id from follow WHERE group_id = :group_id AND user_id = :user_id", group_id = group_id, user_id = self.user_id)
         follow_id = int(follow_id[0]['follow_id'])
 
         return follow_id
 
     def exploregroups(self):
+
         # loads random group's name, description and every other kind of information about the groups
         result = db.execute("SELECT * FROM groups ORDER BY RANDOM() LIMIT 5")
         return result
 
     def loadgroups(self):
+
         # loads every group's name, description and every other kind of information about the groups
         result = db.execute("SELECT * FROM groups")
         return result
 
-    def loadfeed(self):
+    def loadfeed(self, group_id):
+
         # loads all posts of a group
         count = db.execute("SELECT count(*) FROM posts;")
         if len(count) != 0:
             count = int(count[0]['count(*)'])
-            feed = db.execute("SELECT * FROM posts WHERE group_id = :group_id ORDER BY time DESC Limit :count;", group_id = self.group_id, count = count)
+            feed = db.execute("SELECT * FROM posts WHERE group_id = :group_id ORDER BY time DESC Limit :count;", group_id = group_id, count = count)
             return feed
         else:
             return None
 
-    def groupinfo(self):
+    def groupinfo(self, group_id):
+
         # loads basic information of the group
-        info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = self.group_id)
+        info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = group_id)
         if len(info) != 0:
             name = info[0]["group_name"]
             return name
@@ -83,11 +87,13 @@ class Group():
             return None
 
     def followed(self):
+
         # select groupnames that apply to current user-login
         groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
         return groups
 
     def mainfeed(self):
+
         # loads all posts of groups you follow
         count = db.execute("SELECT count(*) FROM posts;")
         print (count)

@@ -21,6 +21,7 @@ class User():
             return None
 
         else:
+
             # insert new user into users
             db.execute("INSERT INTO users (username, hash, first_name, last_name) VALUES (:username, :hash, :first_name, :last_name)",
                         username=username,
@@ -96,6 +97,7 @@ class User():
                 return False
 
     def profilefeed(self):
+
         # loads all posts of the user
         count = db.execute("SELECT count(*) FROM posts;")
         if len(count) != 0:

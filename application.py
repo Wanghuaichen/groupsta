@@ -39,42 +39,40 @@ configure_uploads(app, photos)
 @login_required
 def index():
 
-    group = groups.Group(session["user_id"], 1)
+    group = groups.Group(session["user_id"])
     groupfollow = group.followed()
     feed = group.mainfeed()
 
 
     return render_template("index.html", groupnames = groupfollow, feed = feed)
 
-@app.route("/<group_id>")
+@app.route("/<group_name>")
 @login_required
-def group(group_id):
-    group = groups.Group(session["user_id"], 1)
-    group_id = group.nametoid(group_id)
-    group = groups.Group(session["user_id"], group_id)
+def group(group_name):
 
-    feed = group.loadfeed()
+    # instantiate group function, retrieve group id
+    group = groups.Group(session["user_id"])
+    group_id = group.nametoid(group_name)
 
-    # loads groups information
-    name = group.groupinfo()
-
-
+    # loads group info, group feed and groups followed
+    name = group.groupinfo(group_id)
+    feed = group.loadfeed(group_id)
     groupfollow = group.followed()
 
     if request.method == "POST":
         return "TODO"
 
     else:
-        # returns page with feed and information
         return render_template("index.html", feed = feed, info = name, groupnames = groupfollow)
 
 @app.route("/livesearch")
 def livesearch():
     global search_results
     search_results = None
+
     # retrieve all the groups from the database
     user_id = session["user_id"]
-    group = groups.Group(user_id, 0)
+    group = groups.Group(user_id)
     data = group.loadgroups()
 
     # request the input text from the form
@@ -105,7 +103,7 @@ def livesearch():
 def search():
 
     # # instantiate functions
-    group = groups.Group(session["user_id"], 0)
+    group = groups.Group(session["user_id"])
 
     # make variables
     results = search_results["results"]
@@ -121,6 +119,8 @@ def search():
     group_info = []
     for id in group_id_result:
         group = groups.Group(user_id, id)
+
+        # aan groupinfo moet hier nog een group_id meegegeven worden
         group_info.append(group.groupinfo())
     group_info = [element for sublist in group_info for element in sublist]
 
@@ -144,7 +144,7 @@ def register():
         if request.form.get("password") != request.form.get("passwordcheck"):
             return render_template("register.html")
 
-            # ensure first name not blank
+        # ensure first name not blank
         if not request.form.get("first_name"):
             return render_template("register.html")
 
@@ -182,7 +182,6 @@ def login():
     # forget any user_id
     session.clear()
 
-    # if user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         # ensure username was submitted
@@ -205,8 +204,6 @@ def login():
 
             # log user in
             session["user_id"] = login["user_id"]
-
-            # redirect to index
             return redirect(url_for("index"))
 
     # user reached page via GET
@@ -219,8 +216,6 @@ def logout():
 
     # forget any user_id
     session.clear()
-
-    # redirect user to login form
     return redirect(url_for("login"))
 
 
@@ -229,18 +224,20 @@ def logout():
 def followgroup():
 
     # instantiate functions
-    group = groups.Group(session["user_id"], 0)
+    group = groups.Group(session["user_id"])
     followable = group.exploregroups()
 
     if request.method == "POST":
+
         # controls if a button is pressed and which button is pressed
         if request.form["action"]:
             group_id = request.form["action"]
             session["group_id"] = group_id
 
             # the group_id of the pressed button will be transported to the follow function and returns the follow_id
-            group = groups.Group(session["user_id"], group_id)
-            result = group.follow()
+            result = group.follow(group_id)
+
+            # follow unsuccessful
             if result == None:
                 return render_template("followgroup.html", followable = followable, error = "You're already member of this group")
             else:
@@ -258,6 +255,7 @@ def post():
     following = post.loadgroups()
 
     if request.method == "POST" and 'photo' in request.files:
+
         # request photo
         photo = request.files["photo"]
 
@@ -277,6 +275,7 @@ def post():
             if not choice:
                 return render_template("post.html", groups=following, error = "no group chosen")
             session["group_id"] = choice
+
             # pull description of photo
             description = request.form["description"]
 
@@ -366,8 +365,10 @@ def settings():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
+
     user = users.User(session["user_id"])
     feed = user.profilefeed()
+
     #TODO
     return render_template("profile.html", feed = feed)
 
@@ -384,7 +385,7 @@ def create():
             return render_template("create.html", missingdesc = "The description is missing")
 
         # create function is being called and generates output
-        group = groups.Group(session["user_id"], 0)
+        group = groups.Group(session["user_id"])
         create = group.create(request.form.get("title"), request.form.get("description"))
 
         # responds to the output
@@ -409,10 +410,8 @@ def giphy():
     # max gifs to be retrieved from API
     limit = 25
 
-    # retrieve trending gifs
+    # retrieve trending gifs, store in list
     result = giphy.trending(limit=limit)
-
-    # retrieve urls and store in list
     result_list = [result["data"][i]["images"]["fixed_width_small"]["url"] for i in range(limit)]
 
     if request.method == "POST":
