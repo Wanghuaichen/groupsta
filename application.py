@@ -103,10 +103,28 @@ def livesearch():
 @app.route("/search", methods=["GET", "POST"])
 @login_required
 def search():
+
+    # # instantiate functions
+    group = groups.Group(session["user_id"], 0)
+
+    # make variables
     results = search_results["results"]
+    user_id = session["user_id"]
+
     if not results:
         results = ["No groups found"]
-    return render_template("search.html", results = results)
+
+    # convert group names to group id's
+    group_id_result = [group.nametoid(result) for result in results]
+
+    # load info per group
+    group_info = []
+    for id in group_id_result:
+        group = groups.Group(user_id, id)
+        group_info.append(group.groupinfo())
+    group_info = [element for sublist in group_info for element in sublist]
+
+    return render_template("search.html", group_info = group_info)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
