@@ -94,3 +94,13 @@ class User():
 
             else:
                 return False
+
+    def profilefeed(self):
+        # loads all posts of the user
+        count = db.execute("SELECT count(*) FROM posts;")
+        if len(count) != 0:
+            count = int(count[0]['count(*)'])
+            feed = db.execute("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
+            return feed
+        else:
+            return None

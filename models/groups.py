@@ -46,7 +46,7 @@ class Group():
         return follow_id
 
     def exploregroups(self):
-        # loads every group's name, description and every other kind of information about the groups
+        # loads random group's name, description and every other kind of information about the groups
         result = db.execute("SELECT * FROM groups ORDER BY RANDOM() LIMIT 5")
         return result
 

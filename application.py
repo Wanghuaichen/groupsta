@@ -366,9 +366,10 @@ def settings():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-
+    user = users.User(session["user_id"])
+    feed = user.profilefeed()
     #TODO
-    return render_template("profile.html")
+    return render_template("profile.html", feed = feed)
 
 @app.route("/create", methods=["GET", "POST"])
 @login_required
