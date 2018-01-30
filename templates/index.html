@@ -19,6 +19,9 @@
 			        	<span>Post by: {{ post.username }}</span>
 			            <br>
 			            <span>Description:</span> {{ post.description }}
+			            <br>
+			            <span>Likes:</span> {{ post.likes }}
+
 		        	</p>
 		        	{% for comment in comments %}
 		        		{% if comment.post_id == post.post_id and comment.comment_gif != "empty" %}
@@ -37,12 +40,17 @@
 						<button>Comment!</button>
 					</form>
 					<form action="{{ url_for('index') }}" method="post">
+		        		<input type="hidden" name="likes" value="{{post.post_id}}"/>
+		        		<button>Like!</button>
+		        	</form>
+					<form action="{{ url_for('index') }}" method="post">
 				        <button type="button" class="btn btn-default dropdown-toggle" id="gif-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comment a Gif</button>
 				        <ul class="dropdown-menu" id="gif-menu">
 				        	<input type="hidden" name="post_id" value="{{post.post_id}}"/>
 				            {% for gif in gif_list %}
 				            <li id="gif-item"><input type="image" src="{{ gif }}" name="gif" value="{{ gif }}" id="gif-img"/></li>
 				            {% endfor %}
+				    </form>
 				        </ul>
 			        </form>
 				</div>

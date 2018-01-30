@@ -53,18 +53,26 @@ def index():
 
     if request.method == "POST":
 
-        # retrieve data
+        likes = request.form.get("likes")
         gif_link = request.form.get("gif")
         post_id = request.form.get("post_id")
         comment = request.form.get("comment")
 
+        # if like is requested
+        if likes:
+            post = posts.Post(session["user_id"])
+            updatelike = post.like(likes)
+
+            return redirect(url_for("index"))
+
         # if text comment
-        if not gif_link:
+        elif comment:
             post.comment(post_id, comment)
             comments = post.loadcomments()
             return render_template("index.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
 
-        else:
+        # if a giphy is requested
+        elif gif_link:
             post.comment_gif(post_id, gif_link)
             comments = post.loadcomments()
             return render_template("index.html", groupnames = groupfollow, feed = feed, gif_list = trending_list, comments=comments)
@@ -96,7 +104,7 @@ def group(group_name):
 
 @app.route("/livesearch")
 def livesearch():
-    global search_results
+
     search_results = None
 
     # retrieve all the groups from the database
@@ -121,7 +129,8 @@ def livesearch():
                         result["bio"].append(element["bio"])
                 else:
                     pass
-        search_results = result
+        session["search_results"]  = result
+        print (result)
         return json.dumps(result)
 
     else:
@@ -135,22 +144,24 @@ def search():
     group = groups.Group(session["user_id"])
 
     # make variables
-    results = search_results["results"]
+    results = session["search_results"]
     user_id = session["user_id"]
 
     if not results:
         results = ["No groups found"]
 
     # convert group names to group id's
-    group_id_result = [group.nametoid(result) for result in results]
 
+    group_id_result = [group.nametoid(result) for result in results]
+    print(group_id_result)
     # load info per group
     group_info = []
     for id in group_id_result:
-        group = groups.Group(user_id, id)
+        group = groups.Group(user_id)
 
         # aan groupinfo moet hier nog een group_id meegegeven worden
-        group_info.append(group.groupinfo())
+        group_info.append(group.groupinfo(id))
+
     group_info = [element for sublist in group_info for element in sublist]
 
     return render_template("search.html", group_info = group_info)
