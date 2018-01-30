@@ -136,12 +136,12 @@ main {
 }
 
 .post-container {
-    width: 80%;
+    width: 95%;
     max-height: 400px;
     height: auto;
     display: inline-block;
     margin-bottom: 2vh;
-    background-color: #fcfcfc;
+    background-color: #f9fbfc;
     -webkit-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
     -moz-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
     box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
@@ -153,6 +153,7 @@ main {
     max-height: 400px;
     float: left;
     vertical-align: middle;
+    position: relative;
 }
 
 .post-container-img img {
@@ -176,6 +177,8 @@ main {
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 5%;
+    height: 90%;
+    overflow: auto;
 }
 
 .post-container .post-container-description span {
@@ -189,7 +192,7 @@ main {
 }
 
 .post-container .post-container-description .comment-form input {
-    width: 70%;
+    width: 60%;
     float: left;
     height: 40px;
     background-color: #f7f7f7;
@@ -198,13 +201,26 @@ main {
 }
 
 .post-container .post-container-description .comment-form button {
-    width: 30%;
+    width: 20%;
     float: right;
     border: none;
-    background: #6eb9e5 !important;
+    background-color: #6eb9e5;
     color: #fff;
     border-radius: 0;
     height: 40px;
+}
+
+.post-container .post-container-description .comment-form button:hover {
+    background-color: #5ea1c9;
+}
+
+#like-form {
+    width: 10% !important;
+    background: none !important;
+}
+
+#like-form:hover {
+    opacity: 0.8;
 }
 
 #sidebar {
@@ -227,9 +243,13 @@ main {
 }
 
 #gif-btn {
-    width: 30%;
-    background: #6eb9e5 !important;
-    color: #fff;
+    background-color: #949699;
+    width: 10%;
+}
+
+
+#gif-btn:hover {
+    background-color: #b6b7ba;
 }
 
 #gif-header {
@@ -240,10 +260,4 @@ main {
     float:left;
     box-shadow: 0 0 1px #719ECE;
     margin-left: 5px;
-}
-
-/* comments */
-
-#comment-gif {
-    width: 40px;
 }

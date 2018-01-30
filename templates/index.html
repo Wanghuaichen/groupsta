@@ -16,12 +16,9 @@
 	    	<div class="post-container-description">
 	    		<div class="info">
 			        <p>
-			        	<span>Post by: {{ post.username }}</span>
+			        	<span>Post by: </span>{{ post.username }}
 			            <br>
 			            <span>Description:</span> {{ post.description }}
-			            <br>
-			            <span>Likes:</span> {{ post.likes }}
-
 		        	</p>
 		        	{% for comment in comments %}
 		        		{% if comment.post_id == post.post_id and comment.comment_gif != "empty" %}
@@ -34,25 +31,27 @@
 		        	{% endfor %}
 	        	</div>
 	        	<div class="comment-form">
-		        	<form action="{{ url_for('index') }}" method="post">
-		        		<input type="hidden" name="post_id" value="{{post.post_id}}"/>
-						<input class="form-control" name="comment" placeholder="Leave a comment" type="text" required>
-						<button>Comment!</button>
-					</form>
-					<form action="{{ url_for('index') }}" method="post">
-		        		<input type="hidden" name="likes" value="{{post.post_id}}"/>
-		        		<button>Like!</button>
-		        	</form>
-					<form action="{{ url_for('index') }}" method="post">
-				        <button type="button" class="btn btn-default dropdown-toggle" id="gif-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comment a Gif</button>
+					<form action="{{ url_for('index') }}">
+						<input type="hidden" name="likes" value="{{post.post_id}}"/>
+	    				<button id="like-form"><img src="{{ url_for('static', filename='like.png') }}"></button>
+	    			</form>
+
+	        		<form action="{{ url_for('index') }}" method="post">
+				        <button type="button" id="gif-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GIF</button>
 				        <ul class="dropdown-menu" id="gif-menu">
-				        	<input type="hidden" name="post_id" value="{{post.post_id}}"/>
+				        	<input type="hidden" name="post_id" value="{{ post.post_id }}"/>
 				            {% for gif in gif_list %}
 				            <li id="gif-item"><input type="image" src="{{ gif }}" name="gif" value="{{ gif }}" id="gif-img"/></li>
 				            {% endfor %}
-				    </form>
 				        </ul>
 			        </form>
+
+		        	<form action="{{ url_for('index') }}" method="post">
+		        		<input type="hidden" name="post_id" value="{{ post.post_id }}"/>
+						<input class="form-control" name="comment" placeholder="Leave a comment" type="text" required>
+						<button>Comment!</button>
+					</form>
+
 				</div>
 			</div>
 	    </div>
