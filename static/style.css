@@ -61,6 +61,7 @@ h1 {
 /* LOGIN AND REGISTER */
 .body_log_reg {
     background-color: #f7f7f7;
+    width: 100vw;
 }
 
 .container_log_reg {
@@ -131,6 +132,10 @@ h1 {
 
 /* FEED */
 main {
+    margin-top: 5vh;
+}
+
+.main_container {
     margin-left: 25vw;
     margin-top: 5vh;
 }

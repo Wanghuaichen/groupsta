@@ -6,6 +6,7 @@
 
 {% block main %}
 <body class="body_log_reg">
+    <div class="main_container">
     <div class="container_log_reg">
         <form action="{{ url_for('followgroup') }}" method="post">
             <h1>follow groups</h1>
@@ -24,6 +25,7 @@
                 <BR>
             {% endfor %}
         </form>
+    </div>
     </div>
 </body>
 {% endblock %}

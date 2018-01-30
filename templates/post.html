@@ -6,6 +6,7 @@
 
 {% block main %}
     <body>
+        <div class="main_container">
         <h1>Share your stories!</h1>
         <h2>In which group do you want to share?</h2>
         <form enctype=multipart/form-data action="{{ url_for('post') }}" method=POST>
@@ -21,6 +22,6 @@
             <input type="file" name="photo">
             <input type="submit" name="action">
         </form>
-
+        </div>
     </body>
 {% endblock %}

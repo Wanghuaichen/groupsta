@@ -6,6 +6,7 @@
 
 {% block main %}
 <body class="body_log_reg">
+    <div class="main_container">
     <div class="container_log_reg">
         <h1>Create</h1>
         <form action="{{ url_for('create') }}" method="post">
@@ -23,6 +24,7 @@
                 </div>
             </fieldset>
         </form>
+    </div>
     </div>
 </body>
 {% endblock %}

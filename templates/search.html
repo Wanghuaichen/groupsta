@@ -8,6 +8,7 @@
 
 {% block main %}
 	<body>
+	    <div class="main_container">
 	    <h1>Groups found:</h1>
 	    <form action="{{ url_for('search') }}" method="post">
             <p class="missing">{{ error }}</p>
@@ -18,6 +19,7 @@
                 <BR>
             {% endfor %}
         </form>
+        </div>
 	</body>
 {% endblock %}
 
