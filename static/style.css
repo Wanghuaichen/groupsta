@@ -231,6 +231,7 @@ main {
 #sidebar {
     position: fixed;
     top: 10vh;
+
 }
 
 /* gif menu */
@@ -265,4 +266,19 @@ main {
     float:left;
     box-shadow: 0 0 1px #719ECE;
     margin-left: 5px;
+}
+
+#sidebar_groups {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#sidebar_groups:focus {
+    background-color: yellow;
+}
+
+#loadgroups {
+    list-style-type:square;
+    color: #a1c6dd;
+    padding-left:15px;
 }

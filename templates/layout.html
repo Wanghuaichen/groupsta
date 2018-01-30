@@ -79,7 +79,17 @@
                                 <ul class = "dropdown-menu">
                                     <li><a href="{{ url_for('profile') }}">Profile</a></li>
                                     <li><a href="{{ url_for('settings') }}">Settings</a></li>
-                                    <li><a href="{{ url_for('logout') }}">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+                                    <li><a href="{{ url_for('logout') }}" onclick="return confirm('Are you sure you want to log out?')">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+
+                                    <script type="text/javascript">
+                                        var elems = document.getElementsByClassName('confirmation');
+                                        var confirmIt = function (e) {
+                                            if (!confirm('Are you sure you want to log out?')) e.preventDefault();
+                                        };
+                                        for (var i = 0, l = elems.length; i < l; i++) {
+                                            elems[i].addEventListener('click', confirmIt, false);
+                                        }
+                                    </script>
                                 </ul>
                             </li>
 
@@ -133,20 +143,28 @@
 
             <!--/span-->
 
-                    <div class="sidebar-nav">
-                    <ul class="nav">
+            <div class="sidebar-nav">
 
-                        <div class="sidenav">
+                <ul class="nav">
+
+                    <div class="sidenav">
                         {% if session.user_id %}
+                        <li class="active"><a href="{{ url_for('index') }}">All Feed</a></li>
+                        <li class="nav-divider"></li>
                         <p>My Groups</p>
-						{% block grouplist %}{% endblock %}
+
+                            {% for groupname in groupnames %}
+                            <ul id = "loadgroups">
+                            <li><a id="sidebar_groups" href="{{ groupname.groupname }}">{{ groupname.groupname }}</a></li>
+                            </ul>
+                            {% endfor %}
+
 						<li class="nav-divider"></li>
                         <li class="active"><a href="{{ url_for('followgroup') }}">Explore Groups</a></li>
                         {% endif %}
 
                     </ul>
                 </div>
-                <!--/.well -->
             </div>
 
 
