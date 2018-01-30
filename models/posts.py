@@ -14,13 +14,14 @@ class Post():
                 name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
 
                 # import post in database of user
-                db.execute("INSERT INTO posts (user_id, post_path, username, group_id, description) \
-                        VALUES (:user_id, :post_path, :username, :group_id, :description)",
+                db.execute("INSERT INTO posts (user_id, post_path, username, group_id, description, likes) \
+                        VALUES (:user_id, :post_path, :username, :group_id, :description, :likes)",
                             user_id = self.user_id,
                             post_path = img_path,
                             username = name[0]["username"],
                             group_id = group,
-                            description = description)
+                            description = description,
+                            likes = 0)
 
         def loadgroups(self):
                 result = db.execute("SELECT * FROM follow where user_id = :user_id", user_id = self.user_id)
@@ -59,5 +60,24 @@ class Post():
                 return True
 
         def loadcomments(self):
+                # loads all comments and returns it
                 comments = db.execute("SELECT * FROM comment")
                 return comments
+
+
+        def like(self, post_id):
+                # check if the post is already liked
+                check = db.execute("SELECT * FROM likes WHERE post_id = :post_id AND user_id = :user_id", post_id = post_id, user_id = self.user_id)
+
+                # if the post is already liked the like will be removed
+                if len(check) != 0:
+                        update = db.execute("UPDATE posts SET likes = likes - :new_like WHERE post_id = :post_id", new_like = 1, post_id=post_id)
+                        result = db.execute("DELETE FROM likes WHERE user_id = :user_id AND post_id = :post_id", user_id = self.user_id, post_id = post_id)
+                        return 0
+
+                # otherwise the post will be liked
+                result = db.execute("INSERT INTO likes (user_id, post_id) VALUES (:user_id, :post_id)", user_id = self.user_id, post_id = post_id,)
+                update = db.execute("UPDATE posts SET likes = likes + :new_like WHERE post_id = :post_id", new_like = 1, post_id=post_id)
+                return 1
+
+
