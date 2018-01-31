@@ -420,7 +420,7 @@ def create():
         elif not request.form.get("description"):
             return render_template("create.html", missingdesc = "The description is missing", groupnames = groupfollow)
 
-        # create group
+        # create grou
         create = group.create(request.form.get("title"), request.form.get("description"))
 
         # if the title already exists

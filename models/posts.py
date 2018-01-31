@@ -24,6 +24,7 @@ class Post():
                             likes = 0)
 
         def loadgroups(self):
+
                 # loads all groups that are followed by the user
                 result = db.execute("SELECT * FROM follow where user_id = :user_id", user_id = self.user_id)
                 return result
@@ -33,7 +34,7 @@ class Post():
                 # look up username using user_id
                 name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
 
-                # import comment into databse
+                # import comment into database
                 db.execute("INSERT INTO comment (post_id, user_id, username, comment, comment_gif) \
                            VALUES (:post_id, :user_id, :username, :comment, :comment_gif)",
                            post_id = post_id,
@@ -44,10 +45,11 @@ class Post():
                 return True
 
         def comment_gif(self, post_id, comment_gif):
+
                 # look up username using user_id
                 name = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id = self.user_id)
 
-                # import gif comment into databse
+                # import gif comment into database
                 db.execute("INSERT INTO comment (post_id, user_id, username, comment, comment_gif) \
                            VALUES (:post_id, :user_id, :username, :comment, :comment_gif)",
                            post_id = post_id,
@@ -58,11 +60,13 @@ class Post():
                 return True
 
         def loadcomments(self):
-                # loads all comments and returns it
+
+                # loads all comments
                 return db.execute("SELECT * FROM comment")
 
 
         def like(self, post_id):
+
                 # check if the post is already liked
                 check = db.execute("SELECT * FROM likes WHERE post_id = :post_id AND user_id = :user_id", post_id = post_id, user_id = self.user_id)
 

@@ -79,8 +79,6 @@ class User():
         # check if current password is correct and username is correct
         if pwd_context.verify(current_password, user[0]["hash"]):
             if user[0]["username"] == current_username:
-
-                # if the input is correct the username will be updated
                 db.execute("UPDATE users SET username = :new_username WHERE user_id = :user_id",
                             new_username = new_username, user_id=self.user_id)
                 return True

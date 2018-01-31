@@ -49,16 +49,19 @@ class Group():
         return follow_id
 
     def exploregroups(self):
-        # loads random group's name, description and every other kind of information about the groups
+
+        # loads random group data
         result = db.execute("SELECT * FROM groups ORDER BY RANDOM() LIMIT 5")
         return result
 
     def loadgroups(self):
-        # loads every group's name, description and every other kind of information about the groups
+
+        # loads all group data
         result = db.execute("SELECT * FROM groups")
         return result
 
     def loadfeed(self, group_id):
+
         # loads all posts of a group
         count = db.execute("SELECT count(*) FROM posts;")
         if len(count) != 0:
@@ -69,7 +72,8 @@ class Group():
             return None
 
     def groupinfo(self, group_id):
-        # loads basic information of the group
+
+        # loads basic info of group
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = group_id)
         if len(info) != 0:
             name = info[0]["group_name"]
@@ -78,7 +82,8 @@ class Group():
             return None
 
     def nametoid(self, groupname):
-        # looks for the right user_id by the given username
+
+        # look up group_id
         group_id = db.execute("SELECT group_id FROM groups WHERE group_name = :group_name", group_name = groupname)
         if len(group_id) != 0:
             group_id = int(group_id[0]['group_id'])
@@ -87,12 +92,14 @@ class Group():
             return None
 
     def followed(self):
-        # select groupnames that apply to current user-login
-        return db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
+
+        # retrieve followed groups
+        return db.execute("SELECT groupname FROM follow WHERE user_id = :id", id = self.user_id)
 
 
     def mainfeed(self):
-        # loads all posts of groups you follow
+
+        # loads all posts of groups a user follows
         count = db.execute("SELECT count(*) FROM posts;")
         if len(count) != 0:
             count = int(count[0]['count(*)'])
@@ -101,7 +108,8 @@ class Group():
         return None
 
     def followcheck(self, group_id):
-        # checks if the user already follows the group and responds to return
+
+        # checks if the user already follows group
         result = db.execute("SELECT * FROM follow WHERE user_id = :id AND group_id = :group_id", id = self.user_id, group_id = group_id)
         if len(result) != 0:
             return "Unfollow this group"
