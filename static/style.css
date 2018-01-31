@@ -348,3 +348,23 @@ input[type=file] {
 #follow_groups_h1 {
     margin-bottom: 40px;
 }
+
+
+#welcome {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 500px;
+    height: 300px;
+}
+
+#get_started {
+    border: none;
+    background-color: #5000BE;
+    color: #fff;
+    border-radius: 0;
+    line-height: normal;
+}

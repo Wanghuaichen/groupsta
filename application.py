@@ -435,3 +435,6 @@ def create():
     else:
         return render_template("create.html",groupnames = groupfollow)
 
+@app.route("/welcome")
+def welcome():
+    return render_template("welcome.html")
