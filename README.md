@@ -37,25 +37,25 @@ Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers z
 
 ## Inbreng
 Sjoerd Rienks,
-    - livesearch
-    - post
-    - css
+- livesearch
+- post
+- css
 
 Sjors van der Sluis,
-    - Settings
-    - Comments
-    - Register & Login
+- Settings
+- Comments
+- Register & Login
 
 Patrick Carbin
-    - HTML - pagina's
-    - Navigatiebalk
-    - Design
+- HTML - pagina's
+- Navigatiebalk
+- Design
 
 Jop Rijksbaron
-    - Groepen volgsysteem
-    - Like
-    - Feed laden
-    - Design
+- Groepen volgsysteem
+- Like
+- Feed laden
+- Design
 
 ### Repository
 helpers.py
