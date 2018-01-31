@@ -7,21 +7,32 @@
 {% block main %}
     <body>
         <div class="main_container">
-        <h1>Share your stories!</h1>
-        <h2>In which group do you want to share?</h2>
-        <form enctype=multipart/form-data action="{{ url_for('post') }}" method=POST>
+        <div class="container_upload">
+            <h1>Share your stories!</h1>
+            <h2>In which group do you want to share?</h2>
+            <form enctype=multipart/form-data action="{{ url_for('post') }}" method=POST>
 
-            {% for group in groups %}
-            <input type="radio" name="group" value="{{ group.group_id }}">{{ group.groupname }}<br>
-            {% endfor %}
+                <select>
+                    {% for group in groups %}
+                    <option name="group" value="{{ group.group_id }}">{{ group.groupname }}</option>
+                    {% endfor %}
+                </select>
+                <br>
 
-            <textarea name="description" placeholder="Description"></textarea>
+                <textarea name="description" placeholder="Description"></textarea>
+                <br>
+                <p class="missing">{{ error }}</p>
 
-            {{ error }}
 
-            <input type="file" name="photo">
-            <input type="submit" name="action">
-        </form>
+                <label class="custom_upload">
+                    Select file
+                    <input type="file" name="photo">
+                </label>
+
+                <br>
+                <input type="submit" name="action" id="upload_button" value="upload!">
+            </form>
+        </div>
         </div>
     </body>
 {% endblock %}

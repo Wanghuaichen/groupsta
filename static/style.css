@@ -110,11 +110,9 @@ h1 {
 #result {
     position: absolute;
     background-color: white;
-    width: 196px;
+    width: 199px;
     font-weight: 400;
-    line-height: 1.42857143;
-    color: #333;
-    margin-top: 0;
+    margin-left: 1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -298,4 +296,48 @@ main {
     list-style-type:square;
     color: #a1c6dd;
     padding-left:15px;
+}
+
+.container_upload {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    padding: 3vw;
+    border: 1px solid #d8d8d8;
+}
+
+.container_upload select {
+    margin-bottom: 1vw;
+}
+
+.container_upload textarea {
+    min-width: 300px;
+    max-width: 300px;
+    min-height: 100px;
+}
+
+#upload_button {
+    width: 100px;
+    border: none;
+    background-color: #6eb9e5;
+    color: #fff;
+    border-radius: 0;
+    height: 40px;
+}
+
+#upload_button:hover {
+    background-color: #5ea1c9;
+}
+
+
+input[type=file] {
+    display: none;
+}
+
+.custom_upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
