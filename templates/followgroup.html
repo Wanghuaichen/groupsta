@@ -6,19 +6,21 @@
 
 {% block main %}
 <body class="body_log_reg">
-    <div class="container_log_reg">
-        <form action="{{ url_for('followgroup') }}" method="post">
-            <h1>Follow groups</h1>
-            <p class="missing">{{ error }}</p>
-            {% for group in followable %}
-                <p><b>Group name:</b> {{ group.group_name }}</p>
-                <p><b>Description:</b> {{ group.bio }}</p>
-                <div class="panel_body">
-                    <button name = "action" class="btn btn-default btn-block" id="log_reg_button" type = "submit" value = "{{ group.group_id }}">Join this group now</button>
-                </div>
-                <BR>
-            {% endfor %}
-        </form>
+    <div class="main_container">
+        <div class="container_log_reg">
+            <form action="{{ url_for('followgroup') }}" method="post">
+                <h1>Follow groups</h1>
+                <p class="missing">{{ error }}</p>
+                {% for group in followable %}
+                    <p><b>Group name:</b> {{ group.group_name }}</p>
+                    <p><b>Description:</b> {{ group.bio }}</p>
+                    <div class="panel_body">
+                        <button name = "action" class="btn btn-default btn-block" id="log_reg_button" type = "submit" value = "{{ group.group_id }}">Join this group now</button>
+                    </div>
+                    <BR>
+                {% endfor %}
+            </form>
+        </div>
     </div>
 </body>
 {% endblock %}
