@@ -182,4 +182,5 @@ Models:
 - Flask-uploads API
   - https://pythonhosted.org/Flask-Uploads/
   - https://github.com/maxcountryman/flask-uploads
-
+- AJAX | jQuery API
+  - http://api.jquery.com/jquery.ajax/
