@@ -92,10 +92,10 @@ class User():
 
         # loads the amount of posts
         count = db.execute("SELECT count(*) FROM posts;")
-        count = int(count[0]['count(*)'])
 
         # all the user's posts will be collected and will be returned in the feed
         if len(count) != 0:
+            count = int(count[0]['count(*)'])
             return db.execute("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
         else:
             return None
