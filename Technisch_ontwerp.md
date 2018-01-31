@@ -29,6 +29,10 @@
       - zoekfunctie
     - Liken (POST)
     - Commenten en Gif (POST/GET)
+    
+- /<group_name>
+  - def group(group_name):
+  - Verlengde van /index waarbij specifieke feed van groep enkel wordt geladen
 
 - /post
   - GET en POST
@@ -54,10 +58,8 @@
       - zoekfunctie
     - Account gegevens ophalen (GET)
       - gebruikersnaam
-      - email
-    - Profielfoto veranderfunctie (POST)
+      - wachtwoord
     - Wachtwoord veranderfunctie (POST)
-    - Emailadres wijzigen (POST)
     - Gebruikersnaam veranderen (POST)
 
 - /profile
@@ -97,6 +99,9 @@
       - zoekfunctie
     - Lijst van groepen die je kan volgen
     - Knop waarmee je kan volgen
+  
+  - /livesearch
+    - geimplementeerde livesearch functie
 
 - /admin (Hoort niet bij MVP)
   - GET en POST
@@ -133,19 +138,40 @@
 ![My image](https://github.com/Zjoerdie/UvAgram/blob/master/pictures/prototype_website.jpg?raw=true "hoi")
 
 ## Models/helper
-- Apology functie
-  - Functie die aangeeft als er ergens een error is
-- Zoekfunctie in database
-  - Functie om in database te zoeken naar een bepaald iets (Groep)
-- Feed laden
-  - een functie die de database aanroept en de feed van bijvoorbeeld een groep ophaalt
-- Random feed laden
-  - willekeurige feed ophalen
+
+Helper:
+- Login required functie
+
+Models:
+- Users
+  - Register
+  - Login
+  - Change password
+  - Change username
+  - Profile feed
+- Groups
+  - Create
+  - Follow
+  - Explore groups
+  - Load all groups
+  - Load all posts of a group
+  - Groupinfo
+  - Name to group_id converter
+  - Followed
+  - Main feed
+  - Follow check
+- Posts
+  - Upload
+  - Load groups followed by user
+  - Comment text
+  - Comment Gif
+  - Load comments
+  - Like
 
 ## Plugins in framework
 - Flask
   - http://flask.pocoo.org/
-- Bootstrap (potentieël)
+- Bootstrap
   - https://getbootstrap.com/docs/4.0/getting-started/download/
 - phpmyadmin
   - https://www.phpmyadmin.net/
