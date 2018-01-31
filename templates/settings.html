@@ -6,12 +6,10 @@
 
 {% block main %}
 <body class="body_log_reg">
-    <div class="main_container">
     <h1>Settings</h1>
     <p>{{ success }}</p>
     <div class="container_log_reg">
         <h1>Change Password</h1>
-
         <form action="{{ url_for('settings') }}" method="post">
             <fieldset class="log_reg">
                 <p class="missing">{{ missingcurrent }}</p>
@@ -58,7 +56,6 @@
             </fieldset>
         </form>
         {% block grouplist %}{% endblock %}
-    </div>
     </div>
 </body>
 {% endblock %}
