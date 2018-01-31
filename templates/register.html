@@ -10,6 +10,7 @@
         <h1>Register</h1>
         <form action="{{ url_for('register') }}" method="post">
             <fieldset class="log_reg">
+                <p class="missing">{{ error }}</p>
                 <div class="form-group">
                     <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
                 </div>

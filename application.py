@@ -173,23 +173,23 @@ def register():
 
         # ensure username input not blank
         if not request.form.get("username"):
-            return render_template("register.html")
+            return render_template("register.html", error="Please choose a username.")
 
         # ensure password not blank
         elif not request.form.get("password"):
-            return render_template("register.html")
+            return render_template("register.html", error="Please choose a password")
 
         # ensure same password filled in again
         if request.form.get("password") != request.form.get("passwordcheck"):
-            return render_template("register.html")
+            return render_template("register.html", error="Passwords do not match.")
 
         # ensure first name not blank
         if not request.form.get("first_name"):
-            return render_template("register.html")
+            return render_template("register.html", error="Please enter your first name.")
 
         # ensure last name not blank
         elif not request.form.get("last_name"):
-            return render_template("register.html")
+            return render_template("register.html", error="Please enter your last name.")
 
 
         # retrieve user after register
@@ -200,7 +200,7 @@ def register():
 
         # if username already exists
         if register is None:
-            return render_template("register.html")
+            return render_template("register.html", error="Username already exists.")
 
         # if register successful
         else:
