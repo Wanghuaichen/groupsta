@@ -56,6 +56,12 @@ def index():
         gif_link = request.form.get("gif")
         post_id = request.form.get("post_id")
         comment = request.form.get("comment")
+        follow = request.form.get("follow")
+
+        # if follow is requested
+        if follow:
+            group.follow(follow)
+            return redirect(url_for("index"))
 
         # if like is requested
         if likes:
@@ -97,7 +103,7 @@ def group(group_name):
     trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
     comments = post.loadcomments()
 
-    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments)
+    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments, group_id = group_id)
 
 @app.route("/livesearch")
 def livesearch():

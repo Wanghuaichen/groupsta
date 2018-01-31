@@ -9,6 +9,12 @@
 	<body>
 		<div class="main_container">
 	    <h1>{{ info }}</h1>
+	    {% if group_id %}
+		<form action="{{ url_for('index') }}" method="post">
+    		<input type="hidden" name="follow" value="{{ group_id }}"/>
+    		<button>Follow</button>
+    	</form>
+    	{% endif %}
 	    {% for post in feed %}
 	    <div class="post-container">
 	    	<div class="post-container-img">
