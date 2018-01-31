@@ -132,38 +132,39 @@
         </div>
         </nav>
 
+
+
     <div class="container-fluid">
+        {%- if request.path != "/login" %}
+        {%- if request.path != "/register" %}
         <div class="row row-offcanvas row-offcanvas-left">
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-
-
-
-            <!--/span-->
-
             <div class="sidebar-nav">
 
-                <ul class="nav">
+                    <ul class="nav">
 
-                    <div class="sidenav">
-                        {% if session.user_id %}
-                        <li class="active"><a href="{{ url_for('index') }}">All Feed</a></li>
-                        <li class="nav-divider"></li>
-                        <p>My Groups</p>
+                        <div class="sidenav">
+                            {% if session.user_id %}
+                            <li class="active"><a href="{{ url_for('index') }}">All Feed</a></li>
+                            <li class="nav-divider"></li>
+                            <p>My Groups</p>
 
-                            {% for groupname in groupnames %}
-                            <ul id = "loadgroups">
-                            <li><a id="sidebar_groups" href="{{ groupname.groupname }}">{{ groupname.groupname }}</a></li>
-                            </ul>
-                            {% endfor %}
+                                {% for groupname in groupnames %}
+                                <ul id = "loadgroups">
+                                <li><a id="sidebar_groups" href="{{ groupname.groupname }}">{{ groupname.groupname }}</a></li>
+                                </ul>
+                                {% endfor %}
 
-						<li class="nav-divider"></li>
-                        <li class="active"><a href="{{ url_for('followgroup') }}">Explore Groups</a></li>
-                        {% endif %}
+    						<li class="nav-divider"></li>
+                            <li class="active"><a href="{{ url_for('followgroup') }}">Explore Groups</a></li>
+                            {% endif %}
 
                     </ul>
+
                 </div>
             </div>
-
+            {% endif %}
+            {% endif %}
 
             <main>
                 <center>

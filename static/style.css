@@ -31,6 +31,28 @@ h1 {
 
 /* NAVIGATION LOGGED OUT */
 
+/* INDEX SIDE BAR */
+
+#sidebar {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    padding-top: 90px;
+    background-image: url("../static/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #ced3dd;
+}
+
+.sidenav {
+    color: #fff;
+}
+
+.sidenav a {
+    color: #fff;
+}
+
 
 .navbar {
     border-radius: 0;
@@ -40,13 +62,21 @@ h1 {
 	-moz-box-shadow: none;
 	box-shadow: none;
 	border: none;
-	background-color: #000;
+	background-color: #444A55;
 	position: fixed;
 	width: 100vw;
-	z-index: 1000;
+	z-index: 1;
 	-webkit-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
     -moz-box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
     box-shadow: 0px 5px 23px -6px rgba(0,0,0,0.30);
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #C9C7CB;
 }
 
 .logo img {
@@ -91,13 +121,13 @@ h1 {
 
 #log_reg_button {
     border: none;
-    background: #6eb9e5 !important;
+    background: #5000BE !important;
     color: #fff;
     border-radius: 0;
 }
 
 #log_reg_button:hover {
-    background: #5ea1c9 !important;
+    background: #7028d3 !important;
 }
 
 .avatar {
@@ -123,14 +153,10 @@ h1 {
     padding-left: 12px;
 }
 
-/* INDEX SIDE BAR */
-.col-sm-3 {
-    height: 100vw;
-}
-
 /* FEED */
 main {
     margin-top: 5vh;
+    z-index: 100;
 }
 
 .main_container {
@@ -205,14 +231,14 @@ main {
     width: 20%;
     float: right;
     border: none;
-    background-color: #6eb9e5;
+    background-color: #5000BE;
     color: #fff;
     border-radius: 0;
     height: 40px;
 }
 
 .post-container .post-container-description .comment-form button:hover {
-    background-color: #5ea1c9;
+    background-color: #7028d3;
 }
 
 #like-form {
@@ -224,11 +250,6 @@ main {
     opacity: 0.8;
 }
 
-#sidebar {
-    position: fixed;
-    top: 10vh;
-
-}
 
 .upload_button {
     position: fixed;
@@ -236,7 +257,7 @@ main {
     bottom: 4vw;
     right: 4vw;
     border: none;
-    background-color: blue;
+    background-color: #5000BE;
     color: #fff;
     height: 60px;
     width: 60px;
@@ -320,14 +341,14 @@ main {
 #upload_button {
     width: 100px;
     border: none;
-    background-color: #6eb9e5;
+    background-color: #5000BE;
     color: #fff;
     border-radius: 0;
     height: 40px;
 }
 
 #upload_button:hover {
-    background-color: #5ea1c9;
+    background-color: #7028d3;
 }
 
 
