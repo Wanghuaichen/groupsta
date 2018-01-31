@@ -113,8 +113,6 @@ def group(group_name):
 @app.route("/livesearch")
 def livesearch():
 
-    search_results = None
-
     # retrieve all groups
     user_id = session["user_id"]
     group = groups.Group(user_id)
@@ -125,19 +123,18 @@ def livesearch():
 
     # check if input text is in database data
     if len(text) >= 2:
-        result = {"results":[], "group_id":[], "bio":[]
-        }
+        result = {"results":[]}
+
         for element in data:
             for i in element:
                 if i == 'group_name':
                     searchable = element[i]
                     if str(text).lower() in str(searchable).lower():
                         result["results"].append(searchable)
-                        result["group_id"].append(element["group_id"])
-                        result["bio"].append(element["bio"])
                 else:
                     pass
-        session["search_results"] = result
+
+        # output findings
         return json.dumps(result)
 
     else:
