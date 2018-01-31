@@ -53,6 +53,7 @@ def index():
 
     if request.method == "POST":
 
+        # requesting all data
         likes = request.form.get("likes")
         gif_link = request.form.get("gif")
         post_id = request.form.get("post_id")
@@ -351,10 +352,10 @@ def settings():
         # instantiate user
         user = users.User(session["user_id"])
 
-        # if password button is pressed
+        # checks if password button is pressed
         if request.form["action"] == "Change password":
 
-            # if any form blank
+            # checks if any form blank
             if not request.form.get("current_password"):
                 return render_template("settings.html", missingcurrent = "Current password missing", groupnames = groupfollow)
 
@@ -368,7 +369,7 @@ def settings():
             if request.form.get("new_password") != request.form.get("check_password"):
                 return render_template("settings.html", nomatch = "Passwords do not match", groupnames = groupfollow)
 
-            # change password
+            # change password in the database
             change_password = user.change_password(request.form.get("current_password"),
                                           request.form.get("new_password"),
                                           request.form.get("check_password"))
@@ -381,10 +382,10 @@ def settings():
                 return render_template("settings.html", failure = "Current password is incorrect!", groupnames = groupfollow)
 
 
-        # if username button is pressed
+        # checks if username button is pressed
         elif request.form["action"] == "Change username":
 
-            # if any form blank
+            # checks if any form blank
             if not request.form.get("current_username"):
                 return render_template("settings.html", missingcurrent = "Current username missing", groupnames = groupfollow)
 
@@ -394,7 +395,7 @@ def settings():
             if not request.form.get("current_password"):
                 return render_template("settings.html", missingcheck2 = "Password is missing", groupnames = groupfollow)
 
-            # change username
+            # change username in databases
             change_username = user.change_username(request.form.get("current_username"),
                                                    request.form.get("new_username"),
                                                    request.form.get("current_password"))
@@ -470,7 +471,7 @@ def create():
         group = groups.Group(session["user_id"])
         create = group.create(request.form.get("title"), request.form.get("description"))
 
-        # responds to the output
+        # if the title already exists
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists", groupnames = groupfollow)
         session["group_id"] = create

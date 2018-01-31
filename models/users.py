@@ -11,7 +11,6 @@ class User():
 
 
     def register(username, password, first_name, last_name):
-
         # encrypt password
         hash_password = pwd_context.hash(password)
 
@@ -21,7 +20,6 @@ class User():
             return None
 
         else:
-
             # insert new user into users
             db.execute("INSERT INTO users (username, hash, first_name, last_name) VALUES (:username, :hash, :first_name, :last_name)",
                         username=username,
@@ -36,14 +34,12 @@ class User():
             return user[0]
 
     def login(username, password):
-
         # query database for username
         user = db.execute("SELECT * FROM users WHERE username = :username", username=username)
 
         # ensure username exists and password is correct
         if len(user) != 1 or not pwd_context.verify(password, user[0]["hash"]):
             return None
-
         else:
             return user[0]
 
@@ -55,10 +51,8 @@ class User():
         # check if current password is correct
         if pwd_context.verify(current_password, user[0]["hash"]):
 
-            # check if new_password and password_check match
+            # check if new_password and password_check match and encrypyts the new password
             if new_password == check_password:
-
-                # encrypt new password
                 hash_password = pwd_context.hash(new_password)
 
                 # update password
@@ -82,13 +76,11 @@ class User():
         # retrieve user
         user = db.execute("SELECT * FROM users WHERE user_id = :user_id", user_id=self.user_id)
 
-        # check if current password is correct
+        # check if current password is correct and username is correct
         if pwd_context.verify(current_password, user[0]["hash"]):
-
-            # check if current_username is correct
             if user[0]["username"] == current_username:
 
-                # update username
+                # if the input is correct the username will be updated
                 db.execute("UPDATE users SET username = :new_username WHERE user_id = :user_id",
                             new_username = new_username, user_id=self.user_id)
                 return True
@@ -98,11 +90,12 @@ class User():
 
     def profilefeed(self):
 
-        # loads all posts of the user
+        # loads the amount of posts
         count = db.execute("SELECT count(*) FROM posts;")
+        count = int(count[0]['count(*)'])
+
+        # all the user's posts will be collected and will be returned in the feed
         if len(count) != 0:
-            count = int(count[0]['count(*)'])
-            feed = db.execute("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
-            return feed
+            return db.execute("SELECT * FROM posts WHERE user_id = :user_id ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
         else:
             return None

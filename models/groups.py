@@ -79,26 +79,25 @@ class Group():
             return None
 
     def nametoid(self, groupname):
+        # looks for the right user_id by the given username
         group_id = db.execute("SELECT group_id FROM groups WHERE group_name = :group_name", group_name = groupname)
+        group_id = int(group_id[0]['group_id'])
         if len(group_id) != 0:
-            group_id = int(group_id[0]['group_id'])
             return group_id
         else:
             return None
 
     def followed(self):
-
         # select groupnames that apply to current user-login
-        groups = db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
-        return groups
+        return db.execute("SELECT groupname FROM follow WHERE user_id = :id",id = self.user_id)
+
 
     def mainfeed(self):
-
         # loads all posts of groups you follow
         count = db.execute("SELECT count(*) FROM posts;")
-        print (count)
+        count = int(count[0]['count(*)'])
+
         if len(count) != 0:
-            count = int(count[0]['count(*)'])
             posts = db.execute("SELECT * FROM posts WHERE group_id IN (SELECT group_id FROM follow WHERE user_id = :user_id) ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
             return posts
         return None
