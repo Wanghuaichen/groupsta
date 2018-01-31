@@ -61,8 +61,7 @@ def index():
 
         # if like is requested
         if likes:
-            post = posts.Post(session["user_id"])
-            updatelike = post.like(likes)
+            post.like(likes)
             return redirect(url_for("index"))
 
         # if text comment
