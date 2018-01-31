@@ -142,7 +142,6 @@ main {
 
 .post-container {
     width: 95%;
-    max-height: 400px;
     height: auto;
     display: inline-block;
     margin-bottom: 2vh;
@@ -155,14 +154,13 @@ main {
 
 .post-container .post-container-img {
     width: 60%;
-    max-height: 400px;
     float: left;
     vertical-align: middle;
     position: relative;
 }
 
 .post-container-img img {
-    max-height: 400px;
+    max-height: 600px;
     max-width: 100%;
 }
 
@@ -182,7 +180,7 @@ main {
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 5%;
-    height: 90%;
+    height: 84%;
     overflow: auto;
 }
 
@@ -232,6 +230,29 @@ main {
     position: fixed;
     top: 10vh;
 
+}
+
+.upload_button {
+    position: fixed;
+    z-index: 10000;
+    bottom: 4vw;
+    right: 4vw;
+    border: none;
+    background-color: blue;
+    color: #fff;
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    opacity: 0.4;
+    font-size: 40px;
+}
+
+.upload_button:hover {
+    opacity: 1;
+}
+
+.upload_button a {
+    color: #fff;
 }
 
 /* gif menu */
