@@ -52,10 +52,10 @@ Patrick Carbin
 - Design
 
 Jop Rijksbaron
-- Groepen volgsysteem
+- Volgsysteem en explore
 - Like
 - Feed laden
-- Design
+
 
 ### Repository
 helpers.py
