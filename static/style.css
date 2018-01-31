@@ -124,6 +124,7 @@ h1 {
     background: #5000BE !important;
     color: #fff;
     border-radius: 0;
+    margin-bottom:10px;
 }
 
 #log_reg_button:hover {
