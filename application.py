@@ -317,7 +317,10 @@ def post():
             file = photos.save(photo)
 
             # check in which group to post
-            choice = request.form["group"]
+            # choice = request.form["group"]
+            choice = request.form.get("select_group")
+
+            print(choice)
             if not choice:
                 return render_template("post.html", groups=following, error = "no group chosen", groupnames = groupfollow)
             session["group_id"] = choice
