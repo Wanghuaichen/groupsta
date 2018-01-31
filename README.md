@@ -37,9 +37,9 @@ Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers z
 
 ## Inbreng
 Sjoerd Rienks,
-- livesearch
-- post
-- css
+- Livesearch
+- Post/Upload
+- Design en CSS
 
 Sjors van der Sluis,
 - Settings
