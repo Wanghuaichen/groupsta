@@ -97,14 +97,18 @@ def group(group_name):
     # retrieve data
     group_id = group.nametoid(group_name)
     text = group.followcheck(group_id)
+
     info = group.groupinfo(group_id)
+    group_name = info[0]["group_name"]
+    group_bio = info[0]["bio"]
+
     feed = group.loadfeed(group_id)
     groupfollow = group.followed()
     trending = giphy.trending(limit=25)
     trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
     comments = post.loadcomments()
 
-    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments, group_id = group_id, text = text)
+    return render_template("index.html", groupnames = groupfollow, info = group_name, feed = feed, gif_list = trending_list, comments=comments, group_id = group_id, text = text, bio = group_bio)
 
 @app.route("/livesearch")
 def livesearch():

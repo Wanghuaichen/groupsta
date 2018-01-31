@@ -76,8 +76,7 @@ class Group():
         # loads basic info of group
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = group_id)
         if len(info) != 0:
-            name = info[0]["group_name"]
-            return name
+            return info
         else:
             return None
 

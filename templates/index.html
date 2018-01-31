@@ -12,7 +12,8 @@
 	    {% if group_id %}
 		<form action="{{ url_for('index') }}" method="post">
     		<input type="hidden" name="follow" value="{{ group_id }}"/>
-    		<p><h1>{{ info }} </h1></p>
+    		<h1> {{ info }} </h1>
+    		<p> {{ bio }}</p>
     		<button id="log_reg_button">{{ text }}</button>
     	</form>
     	{% endif %}
