@@ -294,10 +294,6 @@ main {
     font-weight: bold;
 }
 
-#sidebar_groups:focus {
-    background-color: yellow;
-}
-
 #loadgroups {
     list-style-type:square;
     color: #a1c6dd;
