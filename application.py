@@ -4,12 +4,10 @@ from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 from flask_uploads import UploadSet, IMAGES, configure_uploads
-import json
-
 from helpers import *
-import time
 from models import users, groups, posts
 import safygiphy
+import json
 
 # configure application
 app = Flask(__name__)
@@ -53,7 +51,7 @@ def index():
 
     if request.method == "POST":
 
-        # requesting all data
+        # requesting form data
         likes = request.form.get("likes")
         gif_link = request.form.get("gif")
         post_id = request.form.get("post_id")
@@ -106,7 +104,7 @@ def livesearch():
 
     search_results = None
 
-    # retrieve all the groups from the database
+    # retrieve all groups
     user_id = session["user_id"]
     group = groups.Group(user_id)
     data = group.loadgroups()
@@ -128,42 +126,11 @@ def livesearch():
                         result["bio"].append(element["bio"])
                 else:
                     pass
-        session["search_results"]  = result
-        print (result)
+        session["search_results"] = result
         return json.dumps(result)
 
     else:
         return None
-
-@app.route("/search", methods=["GET", "POST"])
-@login_required
-def search():
-
-    # # instantiate functions
-    group = groups.Group(session["user_id"])
-
-    # make variables
-    results = session["search_results"]
-    user_id = session["user_id"]
-
-    if not results:
-        results = ["No groups found"]
-
-    # convert group names to group id's
-
-    group_id_result = [group.nametoid(result) for result in results]
-    print(group_id_result)
-    # load info per group
-    group_info = []
-    for id in group_id_result:
-        group = groups.Group(user_id)
-
-        # aan groupinfo moet hier nog een group_id meegegeven worden
-        group_info.append(group.groupinfo(id))
-
-    group_info = [element for sublist in group_info for element in sublist]
-
-    return render_template("search.html", group_info = group_info)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -171,26 +138,21 @@ def register():
 
     if request.method == "POST":
 
-        # ensure username input not blank
+        # ensure forms filled in properly
         if not request.form.get("username"):
             return render_template("register.html", error="Please choose a username.")
 
-        # ensure password not blank
         elif not request.form.get("password"):
             return render_template("register.html", error="Please choose a password")
 
-        # ensure same password filled in again
         if request.form.get("password") != request.form.get("passwordcheck"):
             return render_template("register.html", error="Passwords do not match.")
 
-        # ensure first name not blank
         if not request.form.get("first_name"):
             return render_template("register.html", error="Please enter your first name.")
 
-        # ensure last name not blank
         elif not request.form.get("last_name"):
             return render_template("register.html", error="Please enter your last name.")
-
 
         # retrieve user after register
         register = users.User.register(request.form.get("username"),
@@ -207,8 +169,6 @@ def register():
 
             # log user in
             session["user_id"] = register["user_id"]
-
-            # redirect user to homepage
             return redirect(url_for("index"))
 
     else:
@@ -223,11 +183,10 @@ def login():
 
     if request.method == "POST":
 
-        # ensure username was submitted
+        # ensure forms properly filled in
         if not request.form.get("username"):
             return render_template("login.html", missing_name = "Username missing")
 
-        # ensure password was submitted
         elif not request.form.get("password"):
             return render_template("login.html", missing_pass = "Password missing")
 
@@ -245,7 +204,6 @@ def login():
             session["user_id"] = login["user_id"]
             return redirect(url_for("index"))
 
-    # user reached page via GET
     else:
         return render_template("login.html")
 
@@ -271,16 +229,17 @@ def followgroup():
 
     if request.method == "POST":
 
-        # controls if a button is pressed and which button is pressed
+        # controls which button pressed
         if request.form["action"]:
-            group_id = request.form["action"]
-            session["group_id"] = group_id
 
-            # the group_id of the pressed button will be transported to the follow function and returns the follow_id
-            result = group.follow(group_id)
+            # retrieve data
+            group_id = request.form["action"]
+
+            # follow group
+            follow = group.follow(group_id)
 
             # follow unsuccessful
-            if result == None:
+            if follow == None:
                 return render_template("followgroup.html", followable = followable, error = "You're already member of this group", groupnames = groupfollow)
             else:
                 return redirect(url_for("index"))
@@ -316,17 +275,12 @@ def post():
             # if allowed, save photo in folder
             file = photos.save(photo)
 
-            # check in which group to post
-            # choice = request.form["group"]
+            # retrieve data
             choice = request.form.get("select_group")
+            description = request.form["description"]
 
-            print(choice)
             if not choice:
                 return render_template("post.html", groups=following, error = "no group chosen", groupnames = groupfollow)
-            session["group_id"] = choice
-
-            # pull description of photo
-            description = request.form["description"]
 
             # insert into database
             path = file
@@ -354,10 +308,10 @@ def settings():
         # instantiate user
         user = users.User(session["user_id"])
 
-        # checks if password button is pressed
+        # password button pressed
         if request.form["action"] == "Change password":
 
-            # checks if any form blank
+            # ensure forms filled in properly
             if not request.form.get("current_password"):
                 return render_template("settings.html", missingcurrent = "Current password missing", groupnames = groupfollow)
 
@@ -371,7 +325,6 @@ def settings():
             if request.form.get("new_password") != request.form.get("check_password"):
                 return render_template("settings.html", nomatch = "Passwords do not match", groupnames = groupfollow)
 
-            # change password in the database
             change_password = user.change_password(request.form.get("current_password"),
                                           request.form.get("new_password"),
                                           request.form.get("check_password"))
@@ -383,11 +336,10 @@ def settings():
             else:
                 return render_template("settings.html", failure = "Current password is incorrect!", groupnames = groupfollow)
 
-
-        # checks if username button is pressed
+        # username button pressed
         elif request.form["action"] == "Change username":
 
-            # checks if any form blank
+            # ensure forms filled in properly
             if not request.form.get("current_username"):
                 return render_template("settings.html", missingcurrent = "Current username missing", groupnames = groupfollow)
 
@@ -397,7 +349,6 @@ def settings():
             if not request.form.get("current_password"):
                 return render_template("settings.html", missingcheck2 = "Password is missing", groupnames = groupfollow)
 
-            # change username in databases
             change_username = user.change_username(request.form.get("current_username"),
                                                    request.form.get("new_username"),
                                                    request.form.get("current_password"))
@@ -469,14 +420,12 @@ def create():
         elif not request.form.get("description"):
             return render_template("create.html", missingdesc = "The description is missing", groupnames = groupfollow)
 
-        # create function is being called and generates output
-        group = groups.Group(session["user_id"])
+        # create group
         create = group.create(request.form.get("title"), request.form.get("description"))
 
         # if the title already exists
         if create == None:
             return render_template("create.html", missingtitle = "The title already exists", groupnames = groupfollow)
-        session["group_id"] = create
 
         return redirect(url_for("index"))
     else:
