@@ -9,7 +9,7 @@
     <div class="main_container">
         <div class="container_log_reg">
             <form action="{{ url_for('followgroup') }}" method="post">
-                <h1>Follow groups</h1>
+                <h1 id="follow_groups_h1">Follow a random group!</h1>
                 <p class="missing">{{ error }}</p>
                 {% for group in followable %}
                     <p><b>Group name:</b> {{ group.group_name }}</p>

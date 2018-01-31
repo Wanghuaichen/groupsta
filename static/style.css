@@ -88,7 +88,7 @@ h1 {
 }
 
 
-/* LOGIN AND REGISTER */
+/* LOGIN AND REGISTER AND NAVIGATION */
 .body_log_reg {
     background-color: #f7f7f7;
     width: 100vw;
@@ -126,6 +126,7 @@ h1 {
     border-radius: 0;
     margin-bottom:2vw;
     vertical-align: middle;
+    padding: 10px;
 }
 
 #log_reg_button:hover {
@@ -253,31 +254,7 @@ main {
 }
 
 
-.upload_button {
-    position: fixed;
-    z-index: 10000;
-    bottom: 4vw;
-    right: 4vw;
-    border: none;
-    background-color: #5000BE;
-    color: #fff;
-    height: 60px;
-    width: 60px;
-    border-radius: 100px;
-    opacity: 0.4;
-    font-size: 40px;
-}
-
-.upload_button:hover {
-    opacity: 1;
-}
-
-.upload_button a {
-    color: #fff;
-}
-
-/* gif menu */
-
+/* GIF MENU */
 #gif-img {
     width: 75px;
     height: 75px;
@@ -321,6 +298,8 @@ main {
     padding-left:15px;
 }
 
+
+/* UPLOAD PAGE */
 .container_upload {
     width: 80%;
     margin-left: auto;
@@ -363,4 +342,9 @@ input[type=file] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+}
+
+/* FOLLOW GROUPS */
+#follow_groups_h1 {
+    margin-bottom: 40px;
 }
