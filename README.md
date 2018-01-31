@@ -1,70 +1,99 @@
 # Groupsta
-Instagram maar dan met groepen.
+Een photosharing platform met groepen.
+
+## Teamleden
+Sjoerd Rienks, 11773138
+Patrick Carbin, 5947480
+Sjors van der Sluis, 10784489
+Jop Rijksbaron, 11685514
 
 ## Samenvatting
 Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers zoals bij Instagram maar binnen één van je communities om groepen mensen weer met elkaar in contact te brengen. De nadruk bij Groupsta ligt bij de comments onder de foto's. Communities kunnen simpel gemaakt worden en een community mag overal over gaan, denk bijvoorbeeld aan een sportvereniging, vriendengroep, evenement of bijvoorbeeld een bejaardentehuis. Als iemand een foto plaatst in zo’n groep kan iedereen die lid is van die groep het bekijken/liken/delen of reageren.
 
-## Schetsen
-Schetsen staan in Github.
+## Screenshot
+![alt text](static/screenshot.png)
 
 ## Features
 - Foto's posten
-- Groepen aanmaken (groepsbeheer)
+    - In een gevolgde groep naar keuze
+    - Met beschrijving
+- Groepen aanmaken
+    - Titel en beschrijving geven
 - Groepen volgen
-- Comments plaatsen (text of gif)
+- Groepen onvolgen
+- Comments plaatsen
+- Gif's uit giphy plaatsen als comments
 - Foto's liken
-- Foto's delen/posten
-- Notificaties
+- Het liken van foto's ongedaan maken
 - Account instellingen
-- Zoekfunctie
-- Foto's bekijken (main feed)
+    - Wachtwoord veranderen
+    - Username veranderen
+- Zoekfunctie met livesearch
+- Feed bekijken
+    - Van één groep
+    - Van alle groepen die de gebruiker volgt
+- Groepen ontdekken
+    - Pagina met 5 randompagina's
 
-## Potentiële extra features
-- Upvote systeem
-- Privé groep
-- Groepsbeheer
-  - mensen uit groepen verwijderen
-  - beschrijving groep aanpassen
-- Evenementenfunctie
-- Explore pagina
+## Inbreng
+Sjoerd Rienks,
+    - livesearch
+    - post
+    - css
 
-## Minimal viable product
-- Foto's posten
-- Foto's bekijken
-- Comments plaatsen (inclusief gifs)
-- Account instellingen (simpel)
-- Groepen volgen
-  - Zodra een user een groep volgt wordt de feed van deze groep bij de mainfeed gevoegd
-  - Zodra een user een groep volgt kan de user foto's posten in deze groep
-- Groepen aanmaken (zonder groepsbeheer)
+Sjors van der Sluis,
+    - Settings
+    - Comments
+    - Register & Login
 
-## Afhankelijkheden
+Patrick Carbin
+    - HTML - pagina's
+    - Navigatiebalk
+    - Design
 
-### Databronnen
-- Giphy API
-  - http://api.giphy.com
-  - Safygiphy
-    - https://github.com/StewPoll/safygiphy
-- Flask-uploads API
-  - https://pythonhosted.org/Flask-Uploads/
-  - https://github.com/maxcountryman/flask-uploads
+Jop Rijksbaron
+    - Groepen volgsysteem
+    - Like
+    - Feed laden
+    - Design
 
-### Externe componenten
-- Flask
-  - http://flask.pocoo.org/
-- Bootstrap (potentieël)
-  - https://getbootstrap.com/docs/4.0/getting-started/download/ 
-- phpmyadmin
-  - https://www.phpmyadmin.net/
+### Repository
+helpers.py
+    - Login required functie
 
-### Concurrerende bestaande websites
-- Instagram
-  - Ons project is gebaseerd op Instagram, bijna alle basisfuncties van deze applicatie worden overgenomen.
-- Reddit
-  - Reddit werkt met subreddits (communities), en op deze subreddits kan je abboneren. Wij gaan het subreddit idee implementeren in onze applicatie door middel van de groepen functie.
+groupsta.db
+- De database van de website
 
-### Moeilijkste delen
-- Zoekmachine is moeilijk te implementeren.
-- Database goed inrichten.
-- Groepenfunctie implementeren.
-- Random groupfeed laden wordt lastig.
+Models:
+- Users
+    - Register
+    - Login
+    - Change password
+    - Change username
+    - Profile feed
+- Groups
+    - Create
+    - Follow
+    - Explore groups
+    - Load all groups
+    - Load all posts of a group
+    - Groupinfo
+    - Name to group_id converter
+    - Followed
+    - Main feed
+    - Follow check
+- Posts
+    - Upload
+    - Load groups followed by user
+    - Comment text
+    - Comment Gif
+    - Load comments
+    - Like
+
+Static:
+- Website afbeeldingen
+- IMG
+    - Geuploade afbeeldingen
+
+Templates:
+- Alle html-bestanden van de website
