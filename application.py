@@ -96,6 +96,7 @@ def group(group_name):
 
     # retrieve data
     group_id = group.nametoid(group_name)
+    text = group.followcheck(group_id)
     info = group.groupinfo(group_id)
     feed = group.loadfeed(group_id)
     groupfollow = group.followed()
@@ -103,7 +104,7 @@ def group(group_name):
     trending_list = [trending["data"][i]["images"]["fixed_width_small"]["url"] for i in range(25)]
     comments = post.loadcomments()
 
-    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments, group_id = group_id)
+    return render_template("index.html", groupnames = groupfollow, info = info, feed = feed, gif_list = trending_list, comments=comments, group_id = group_id, text = text)
 
 @app.route("/livesearch")
 def livesearch():
@@ -237,18 +238,11 @@ def followgroup():
 
         # controls which button pressed
         if request.form["action"]:
-
-            # retrieve data
             group_id = request.form["action"]
 
             # follow group
             follow = group.follow(group_id)
-
-            # follow unsuccessful
-            if follow == None:
-                return render_template("followgroup.html", followable = followable, error = "You're already member of this group", groupnames = groupfollow)
-            else:
-                return redirect(url_for("index"))
+            return redirect(url_for("index"))
 
     else:
         return render_template("followgroup.html", followable = followable, groupnames = groupfollow)

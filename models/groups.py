@@ -27,9 +27,12 @@ class Group():
         return group_id
 
     def follow(self, group_id):
+        # checks if the user is already followed
         result = db.execute("SELECT * FROM follow WHERE group_id=:group_id AND user_id=:user_id", group_id = group_id, user_id = self.user_id)
         if len(result) != 0:
-            return None
+            # unfollows the user from the group
+            db.execute("DELETE FROM follow WHERE user_id = :user_id AND group_id = :group_id", user_id = self.user_id, group_id = group_id)
+            return
 
         # collects groupname for the group_id
         groupname = db.execute("SELECT group_name FROM groups WHERE group_id=:group_id", group_id=group_id)
@@ -46,19 +49,16 @@ class Group():
         return follow_id
 
     def exploregroups(self):
-
         # loads random group's name, description and every other kind of information about the groups
         result = db.execute("SELECT * FROM groups ORDER BY RANDOM() LIMIT 5")
         return result
 
     def loadgroups(self):
-
         # loads every group's name, description and every other kind of information about the groups
         result = db.execute("SELECT * FROM groups")
         return result
 
     def loadfeed(self, group_id):
-
         # loads all posts of a group
         count = db.execute("SELECT count(*) FROM posts;")
         if len(count) != 0:
@@ -69,7 +69,6 @@ class Group():
             return None
 
     def groupinfo(self, group_id):
-
         # loads basic information of the group
         info = db.execute("SELECT * FROM groups WHERE group_id = :group_id", group_id = group_id)
         if len(info) != 0:
@@ -100,3 +99,11 @@ class Group():
             posts = db.execute("SELECT * FROM posts WHERE group_id IN (SELECT group_id FROM follow WHERE user_id = :user_id) ORDER BY time DESC Limit :count;", user_id = self.user_id, count = count)
             return posts
         return None
+
+    def followcheck(self, group_id):
+        # checks if the user already follows the group and responds to return
+        result = db.execute("SELECT * FROM follow WHERE user_id = :id AND group_id = :group_id", id = self.user_id, group_id = group_id)
+        if len(result) != 0:
+            return "Unfollow this group"
+        else:
+            return "Follow this group"
