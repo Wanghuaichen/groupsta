@@ -34,6 +34,9 @@ Het idee achter Groupsta zijn de groepen, je deelt de foto niet met je volgers z
     - Van alle groepen die de gebruiker volgt
 - Groepen ontdekken
     - Pagina met 5 randompagina's
+    
+## Video
+- https://vimeo.com/253888618
 
 ## Inbreng
 Sjoerd Rienks,
